@@ -3,45 +3,132 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>球隊沿革</title>
+    <title>球隊沿革｜註冊與登入</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        .auth-panel { max-width: 460px; margin: 0 auto 24px; padding: 22px; border: 1px solid #e3e9f2; border-radius: 16px; background: #f9fbff; }
+        .auth-panel h3 { margin-bottom: 14px; color: #243550; }
+        .auth-form { display: grid; gap: 10px; }
+        .auth-form input { width: 100%; padding: 11px 13px; border: 1px solid #ccd6e4; border-radius: 9px; font: inherit; }
+        .auth-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+        .auth-actions button { padding: 9px 14px; border: 0; border-radius: 9px; background: #3557a5; color: #fff; cursor: pointer; font: inherit; }
+        .auth-actions button.secondary { background: #e8edf5; color: #293b59; }
+        .auth-actions button:disabled { opacity: .6; cursor: wait; }
+        #auth-status { min-height: 1.5em; margin-top: 10px; color: #52647d; font-size: 14px; }
+        #auth-status[data-state="error"] { color: #b42318; }
+        .auth-user { margin-top: 10px; color: #334155; font-size: 14px; }
+    </style>
 </head>
 <body>
     <div id="Center">
-
-    <div id="Content">
-
-        <div class="PageTitle"><h2>球隊沿革</h2></div>
-        <div id="Breadcrumbs">
-            <div>
-                <ul>
-                    <!-- <li><a href="/">首頁</a></li> -->
-                    <li><a href="#">球隊沿革</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="editable_content">
-            <div class="district">
-<div class="TeamHistoryTimeLine">
-<div class="timeline_swipe_guide" style="display: none;">
-<div class="desktop"></div>
-<div class="mobile"></div>
-</div>
-<div class="timeline_outer">
-<div class="tableWrap">
-<table id="teamHistoryTable">
-    <tbody id="team-history-body">
-        <!-- 表格內容將由JavaScript動態生成 -->
-    </tbody>
-</table>
-</div>
-</div>
-</div>
+        <div id="Content">
+            <div class="PageTitle"><h2>球隊沿革</h2></div>
+            <div id="Breadcrumbs"><div><ul><li><a href="#">球隊沿革</a></li></ul></div></div>
+            <section class="auth-panel" aria-labelledby="auth-title">
+                <h3 id="auth-title">會員註冊／登入</h3>
+                <form id="auth-form" class="auth-form">
+                    <label for="auth-email">電子郵件</label>
+                    <input id="auth-email" name="email" type="email" autocomplete="email" required maxlength="254">
+                    <label for="auth-password">密碼（至少 6 個字元）</label>
+                    <input id="auth-password" name="password" type="password" autocomplete="new-password" minlength="6" required>
+                    <div class="auth-actions">
+                        <button id="signup-button" type="button">註冊</button>
+                        <button id="signin-button" class="secondary" type="button">登入</button>
+                        <button id="signout-button" class="secondary" type="button" hidden>登出</button>
+                    </div>
+                </form>
+                <p id="auth-status" role="status" aria-live="polite"></p>
+                <p id="auth-user" class="auth-user" hidden></p>
+            </section>
+            <div class="editable_content">
+                <div class="district">
+                    <div class="TeamHistoryTimeLine">
+                        <div class="timeline_outer">
+                            <div class="tableWrap">
+                                <table id="teamHistoryTable"><tbody id="team-history-body"></tbody></table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+    <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyAMUyiC7h_Yy57lsRaNneqY_9z6Kp_Ag2Y",
+            authDomain: "project-8285027657505595761.firebaseapp.com",
+            projectId: "project-8285027657505595761",
+            storageBucket: "project-8285027657505595761.firebasestorage.app",
+            messagingSenderId: "343594574297",
+            appId: "1:343594574297:web:e122956794aa9b1dae79c8",
+            measurementId: "G-V1FQ5Q79G6"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const form = document.getElementById('auth-form');
+        const emailInput = document.getElementById('auth-email');
+        const passwordInput = document.getElementById('auth-password');
+        const status = document.getElementById('auth-status');
+        const userDisplay = document.getElementById('auth-user');
+        const signupButton = document.getElementById('signup-button');
+        const signinButton = document.getElementById('signin-button');
+        const signoutButton = document.getElementById('signout-button');
 
-</div>
+        function setStatus(message, isError = false) {
+            status.textContent = message;
+            status.dataset.state = isError ? 'error' : 'success';
+        }
+        function credentials() {
+            if (!form.reportValidity()) throw new Error('請輸入有效的電子郵件與至少 6 個字元的密碼。');
+            return { email: emailInput.value.trim(), password: passwordInput.value };
+        }
+        function describeAuthError(error) {
+            const messages = {
+                'auth/email-already-in-use': '這個電子郵件已註冊，請直接登入。',
+                'auth/invalid-email': '電子郵件格式不正確。',
+                'auth/weak-password': '密碼強度不足，請使用至少 6 個字元。',
+                'auth/user-disabled': '此帳號目前已停用。',
+                'auth/invalid-credential': '電子郵件或密碼錯誤，請確認後重試。',
+                'auth/network-request-failed': '網路連線失敗，請稍後重試。',
+                'auth/operation-not-allowed': 'Firebase 尚未啟用電子郵件／密碼登入，請到 Authentication 的登入方式設定啟用。',
+                'auth/too-many-requests': '嘗試次數過多，請稍候再試。'
+            };
+            return messages[error.code] || '操作失敗，請確認 Firebase Authentication 設定後重試。';
+        }
+        async function runAuth(action) {
+            signupButton.disabled = signinButton.disabled = true;
+            try {
+                const { email, password } = credentials();
+                await action(email, password);
+                passwordInput.value = '';
+                setStatus('操作成功。');
+            } catch (error) {
+                setStatus(error.code ? describeAuthError(error) : error.message, true);
+            } finally {
+                signupButton.disabled = signinButton.disabled = false;
+            }
+        }
+        signupButton.addEventListener('click', () => runAuth((email, password) => auth.createUserWithEmailAndPassword(email, password)));
+        signinButton.addEventListener('click', () => runAuth((email, password) => auth.signInWithEmailAndPassword(email, password)));
+        signoutButton.addEventListener('click', async () => {
+            try { await auth.signOut(); setStatus('已登出。'); }
+            catch (error) { setStatus(describeAuthError(error), true); }
+        });
+        auth.onAuthStateChanged(user => {
+            const signedIn = Boolean(user);
+            userDisplay.hidden = !signedIn;
+            signoutButton.hidden = !signedIn;
+            signupButton.hidden = signinButton.hidden = signedIn;
+            if (user) {
+                userDisplay.textContent = `目前登入：${user.email || '已登入帳號'}`;
+                setStatus('登入成功。');
+            } else {
+                userDisplay.textContent = '';
+            }
+        });
+    </script>
     <script src="script.js"></script>
 </body>
 </html>
