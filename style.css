@@ -658,13 +658,14 @@ body {
     .merger-source, .merger-result { padding: 4px 6px; }
 }
 
-/* 2003 年兩支球隊同列為一個視覺整體，跨越三個時間軸欄位。 */
-#teamHistoryTable .year-2003-group {
+
+/* 1997–2002 年高屏雷公與台北太陽視為同一個合併群組。 */
+#teamHistoryTable .year-merged-group {
     padding: 8px 10px;
     background: linear-gradient(135deg, #f8fafc, #fffdf7) !important;
 }
 
-.year-2003-group-teams {
+.year-merged-group-teams {
     display: flex;
     align-items: stretch;
     justify-content: center;
@@ -672,7 +673,7 @@ body {
     height: 100%;
 }
 
-#teamHistoryTable .year-2003-group-item {
+#teamHistoryTable .year-merged-group-teams > .team-cell {
     flex: 1 1 0;
     min-width: 0;
     border: 1px solid rgba(72, 87, 108, .12);
@@ -680,7 +681,7 @@ body {
 }
 
 @media (max-width: 768px) {
-    #teamHistoryTable .year-2003-group { padding: 6px 4px; }
-    .year-2003-group-teams { gap: 4px; }
-    #teamHistoryTable .year-2003-group-item { padding: 6px 2px; }
+    #teamHistoryTable .year-merged-group { padding: 6px 4px; }
+    .year-merged-group-teams { gap: 4px; }
+    #teamHistoryTable .year-merged-group-teams > .team-cell { padding: 6px 2px; }
 }

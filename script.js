@@ -466,6 +466,8 @@ const teamHistoryData = [
             { name: '興農牛', color: '#ececec', hasTeamName: false },
             null, // 空列
             { name: '第一金剛', color: '#d5f4fb', hasTeamName: false },
+            null, // 空列
+            null, // 空列
             { name: '誠泰太陽', color: '#fee6c4', hasTeamName: false },
             null, // 空列
             null, // 空列
@@ -824,46 +826,58 @@ function renderTeamHistoryTable() {
         yearCell.textContent = yearData.year;
         row.appendChild(yearCell);
 
-        if (yearData.year === 2003) {
-            const make2003TeamCell = team => {
-                const cell = document.createElement('td');
-                cell.className = team ? 'team-cell' : 'team-cell empty-cell';
-                if (!team) return cell;
-                cell.style.backgroundColor = team.color;
-                if (champion === team) cell.classList.add('champion-cell');
-                if (teamLogos[team.name]) {
-                    const img = document.createElement('img');
-                    img.src = teamLogos[team.name]; img.alt = team.name; img.className = 'team-logo';
-                    img.onerror = function() { this.style.display = 'none'; };
-                    cell.appendChild(img);
+        const makeGroupedTeamCell = team => {
+            const cell = document.createElement('td');
+            cell.className = team ? 'team-cell' : 'team-cell empty-cell';
+            if (!team) return cell;
+            cell.style.backgroundColor = team.color;
+            if (champion === team) cell.classList.add('champion-cell');
+            if (teamLogos[team.name]) {
+                const img = document.createElement('img');
+                img.src = teamLogos[team.name]; img.alt = team.name; img.className = 'team-logo';
+                img.onerror = function() { this.style.display = 'none'; };
+                cell.appendChild(img);
+            }
+            const name = document.createElement('div'); name.className = 'team-name'; name.textContent = team.name; cell.appendChild(name);
+            if (champion === team) {
+                const badge = document.createElement('span'); badge.className = 'champion-badge'; badge.textContent = '★ 冠軍'; cell.appendChild(badge);
+                const button = document.createElement('button'); button.type = 'button';
+                button.className = `trophy-toggle${trophyEnabled ? ' is-enabled' : ''}`;
+                button.textContent = trophyEnabled ? '🏆' : '＋🏆';
+                button.setAttribute('aria-label', `${yearData.year} 年獎盃${trophyEnabled ? '已顯示，點選隱藏' : '未顯示，點選顯示'}`);
+                button.setAttribute('aria-pressed', String(trophyEnabled)); button.title = trophyEnabled ? '點選隱藏獎盃' : '點選顯示獎盃';
+                button.addEventListener('click', event => { event.stopPropagation(); saveChampionshipSetting(yearData.year, trophyEnabled ? '' : team.name, !trophyEnabled); renderTeamHistoryTable(); });
+                cell.appendChild(button);
+            } else {
+                const button = document.createElement('button'); button.type = 'button'; button.className = 'set-champion-button'; button.textContent = '設為冠軍';
+                button.setAttribute('aria-label', `將 ${team.name} 設為 ${yearData.year} 年冠軍`);
+                button.addEventListener('click', event => { event.stopPropagation(); saveChampionshipSetting(yearData.year, team.name, true); renderTeamHistoryTable(); }); cell.appendChild(button);
+            }
+            if (team.isNew) { const badge = document.createElement('div'); badge.className = 'new-team-badge'; badge.textContent = 'NEW'; cell.appendChild(badge); }
+            if (team.hasTeamName) cell.classList.add('team-name-change');
+            return cell;
+        };
+
+        if (yearData.year >= 1997 && yearData.year <= 2002) {
+            const mergedTeamIndexes = [4, 5];
+            const firstMergedIndex = mergedTeamIndexes[0];
+            yearData.teams.forEach((team, index) => {
+                if (index === firstMergedIndex) {
+                    const group = document.createElement('td');
+                    group.className = 'team-cell year-merged-group';
+                    group.colSpan = mergedTeamIndexes.length;
+                    group.setAttribute('aria-label', '高屏雷公與台北太陽同組');
+                    const items = document.createElement('div');
+                    items.className = 'year-merged-group-teams';
+                    mergedTeamIndexes.forEach(mergedIndex => items.appendChild(makeGroupedTeamCell(yearData.teams[mergedIndex])));
+                    group.appendChild(items);
+                    row.appendChild(group);
+                } else if (!mergedTeamIndexes.includes(index)) {
+                    row.appendChild(makeGroupedTeamCell(team));
                 }
-                const name = document.createElement('div'); name.className = 'team-name'; name.textContent = team.name; cell.appendChild(name);
-                if (champion === team) {
-                    const badge = document.createElement('span'); badge.className = 'champion-badge'; badge.textContent = '★ 冠軍'; cell.appendChild(badge);
-                    const button = document.createElement('button'); button.type = 'button';
-                    button.className = `trophy-toggle${trophyEnabled ? ' is-enabled' : ''}`;
-                    button.textContent = trophyEnabled ? '🏆' : '＋🏆';
-                    button.setAttribute('aria-label', `${yearData.year} 年獎盃${trophyEnabled ? '已顯示，點選隱藏' : '未顯示，點選顯示'}`);
-                    button.setAttribute('aria-pressed', String(trophyEnabled)); button.title = trophyEnabled ? '點選隱藏獎盃' : '點選顯示獎盃';
-                    button.addEventListener('click', event => { event.stopPropagation(); saveChampionshipSetting(yearData.year, trophyEnabled ? '' : team.name, !trophyEnabled); renderTeamHistoryTable(); });
-                    cell.appendChild(button);
-                } else {
-                    const button = document.createElement('button'); button.type = 'button'; button.className = 'set-champion-button'; button.textContent = '設為冠軍';
-                    button.setAttribute('aria-label', `將 ${team.name} 設為 ${yearData.year} 年冠軍`);
-                    button.addEventListener('click', event => { event.stopPropagation(); saveChampionshipSetting(yearData.year, team.name, true); renderTeamHistoryTable(); }); cell.appendChild(button);
-                }
-                if (team.isNew) { const badge = document.createElement('div'); badge.className = 'new-team-badge'; badge.textContent = 'NEW'; cell.appendChild(badge); }
-                if (team.hasTeamName) cell.classList.add('team-name-change');
-                return cell;
-            };
-            yearData.teams.slice(0, 3).forEach(team => row.appendChild(make2003TeamCell(team)));
-            const group = document.createElement('td'); group.className = 'team-cell year-2003-group'; group.colSpan = 3;
-            group.setAttribute('aria-label', '第一金剛與誠泰太陽同組');
-            const items = document.createElement('div'); items.className = 'year-2003-group-teams';
-            [yearData.teams[4], yearData.teams[5]].forEach(team => items.appendChild(make2003TeamCell(team)));
-            group.appendChild(items); row.appendChild(group);
-            yearData.teams.slice(6).forEach(team => row.appendChild(make2003TeamCell(team)));
-        } else {        // 球隊欄位
+            });
+        } else {
+        // 球隊欄位
         yearData.teams.forEach(team => {
             const teamCell = document.createElement('td');
             teamCell.className = 'team-cell';
