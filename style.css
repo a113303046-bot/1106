@@ -1,0 +1,686 @@
+/* 全局樣式 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    min-height: 100vh;
+    padding: 20px;
+}
+
+/* 主容器 */
+#Center {
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+#Content {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+    padding: 30px;
+    overflow-x: auto;
+}
+
+/* 頁面標題 */
+.PageTitle {
+    margin-bottom: 25px;
+    border-bottom: 3px solid #667eea;
+    padding-bottom: 15px;
+}
+
+.PageTitle h2 {
+    color: #333;
+    font-size: 28px;
+    font-weight: 600;
+}
+
+/* 麵包屑導航 */
+#Breadcrumbs {
+    margin-bottom: 30px;
+    padding: 15px;
+    background: #f5f5f5;
+    border-radius: 8px;
+}
+
+#Breadcrumbs ul {
+    list-style: none;
+    display: flex;
+    gap: 10px;
+}
+
+#Breadcrumbs li {
+    color: #666;
+}
+
+#Breadcrumbs a {
+    color: #667eea;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+#Breadcrumbs a:hover {
+    color: #764ba2;
+    text-decoration: underline;
+}
+
+#Breadcrumbs li:not(:last-child)::after {
+    content: "/";
+    margin-left: 10px;
+    color: #999;
+}
+
+/* 表格樣式 */
+table {
+    border-collapse: collapse;
+    width: 100%;
+    background: white;
+}
+
+td {
+    border: 1px solid #e0e0e0;
+    padding: 12px;
+    text-align: center;
+    vertical-align: middle;
+    transition: all 0.3s ease;
+}
+
+td:hover {
+    background-color: #f9f9f9;
+}
+
+tr:nth-child(even) {
+    background-color: #fafafa;
+}
+
+/* 年份列 */
+td.year {
+    font-weight: 700;
+    color: #667eea;
+    background-color: #eff0ff;
+    width: 80px !important;
+    font-size: 16px;
+}
+
+/* 球隊名稱 */
+.team_name {
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 8px;
+    font-size: 14px;
+    min-height: 20px;
+}
+
+/* 時間軸條 */
+.timeline_bar {
+    border-radius: 6px;
+    padding: 8px;
+    min-height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+.timeline_bar:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* 隊徽 */
+.team_logo {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.team_logo a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: relative;
+}
+
+.team_logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+    display: block;
+}
+
+/* 動態生成的隊徽樣式 */
+.team-logo {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+    object-position: center;
+    display: block;
+    margin: 0 auto;
+}
+
+/* 冠軍徽章 - 金星標記 */
+.timeline_bar.win {
+    border: 3px solid #FFD700;
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
+}
+
+.timeline_bar.win::before {
+    content: "★";
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    font-size: 24px;
+    color: #FFD700;
+    text-shadow: 0 0 3px rgba(0,0,0,0.3);
+    z-index: 10;
+}
+
+.timeline_bar.win::after {
+    content: "冠軍";
+    position: absolute;
+    bottom: -22px;
+    right: 0;
+    font-size: 11px;
+    color: #fff;
+    background: #FFD700;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-weight: 700;
+    z-index: 10;
+}
+
+/* 初創隊伍標記 */
+.timeline_bar.est {
+    border: 2px dashed #888;
+    background-color: rgba(200, 200, 200, 0.1) !important;
+}
+
+.timeline_bar.est::before {
+    content: "NEW";
+    position: absolute;
+    top: -8px;
+    left: -8px;
+    font-size: 11px;
+    color: #fff;
+    background: #FF6B6B;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-weight: 700;
+}
+
+/* 響應式設計 */
+@media (max-width: 1024px) {
+    #Content {
+        padding: 20px;
+    }
+    
+    td {
+        padding: 8px;
+        font-size: 12px;
+    }
+    
+    .team_name {
+        font-size: 12px;
+    }
+    
+    .team_logo {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .timeline_bar.win::after {
+        font-size: 9px;
+        padding: 1px 4px;
+    }
+}
+
+@media (max-width: 768px) {
+    .set-champion-button {
+        opacity: 1;
+    }
+
+    body {
+        padding: 10px;
+    }
+    
+    #Content {
+        padding: 15px;
+        border-radius: 8px;
+    }
+    
+    .PageTitle h2 {
+        font-size: 22px;
+    }
+    
+    td {
+        padding: 6px;
+        font-size: 11px;
+    }
+    
+    .team_logo {
+        width: 35px;
+        height: 35px;
+    }
+    
+    .timeline_bar {
+        min-height: 40px;
+        padding: 4px;
+    }
+}
+
+/* 頁面內容容器 */
+.editable_content {
+    margin-top: 20px;
+}
+
+.district {
+    background: white;
+}
+
+.TeamHistoryTimeLine {
+    width: 100%;
+}
+
+/* 年份及球隊歷史表格 */
+#teamHistoryTable {
+    min-width: 980px;
+    table-layout: fixed;
+}
+
+.year-cell {
+    width: 76px;
+    color: #4b58a8;
+    background: #eff0ff;
+    font-weight: 700;
+}
+
+.team-cell {
+    position: relative;
+    min-width: 75px;
+    height: 112px;
+    padding: 8px 5px;
+}
+
+.team-cell.empty-cell {
+    background: #fafafa;
+}
+
+.team-name {
+    margin-top: 5px;
+    font-size: 12px;
+    line-height: 1.4;
+    overflow-wrap: anywhere;
+}
+
+.champion-cell {
+    box-shadow: inset 0 0 0 2px #e5ae18;
+}
+
+.champion-badge {
+    display: block;
+    margin-top: 4px;
+    color: #785300;
+    font-size: 11px;
+    font-weight: 700;
+}
+
+.trophy-toggle,
+.set-champion-button {
+    display: inline-block;
+    margin-top: 4px;
+    border: 1px solid #c8a64b;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.8);
+    color: #624b11;
+    cursor: pointer;
+    font: inherit;
+    line-height: 1.3;
+}
+
+.trophy-toggle {
+    min-width: 30px;
+    padding: 2px 6px;
+    font-size: 16px;
+}
+
+.trophy-toggle.is-enabled {
+    border-color: transparent;
+    background: rgba(255, 255, 255, 0.45);
+}
+
+.set-champion-button {
+    padding: 2px 5px;
+    font-size: 10px;
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+
+.team-cell:hover .set-champion-button,
+.set-champion-button:focus-visible {
+    opacity: 1;
+}
+
+.trophy-toggle:focus-visible,
+.set-champion-button:focus-visible {
+    outline: 2px solid #5262c7;
+    outline-offset: 2px;
+}
+
+.timeline_outer {
+    width: 100%;
+    overflow-x: auto;
+}
+
+.tableWrap {
+    min-width: 100%;
+}
+
+/* Polished team-history interface */
+:root {
+    color-scheme: light;
+    --ink: #182538;
+    --muted: #64748b;
+    --line: #e5eaf1;
+    --accent: #3557a5;
+    --accent-soft: #edf3ff;
+    --gold: #c69222;
+}
+
+body {
+    color: var(--ink);
+    background:
+        radial-gradient(ellipse at 12% 5%, rgba(114, 153, 218, .26), transparent 34rem),
+        radial-gradient(ellipse at 92% 90%, rgba(190, 163, 111, .18), transparent 30rem),
+        #edf1f6;
+    padding: clamp(12px, 3vw, 38px);
+}
+
+#Center { max-width: 1480px; }
+
+#Content {
+    padding: clamp(18px, 3.2vw, 42px);
+    border: 1px solid rgba(255,255,255,.85);
+    border-radius: 22px;
+    background: rgba(255,255,255,.96);
+    box-shadow: 0 22px 70px rgba(31, 48, 76, .12), 0 2px 8px rgba(31, 48, 76, .05);
+    overflow: hidden;
+}
+
+.PageTitle {
+    position: relative;
+    margin-bottom: 20px;
+    padding: 5px 0 19px;
+    border-bottom: 1px solid var(--line);
+}
+
+.PageTitle::after {
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 74px;
+    height: 3px;
+    border-radius: 99px;
+    background: linear-gradient(90deg, #365ba8, #83a5e2);
+    content: "";
+}
+
+.PageTitle h2 {
+    color: #17263d;
+    font-size: clamp(25px, 3vw, 34px);
+    font-weight: 750;
+    letter-spacing: .04em;
+}
+
+#Breadcrumbs {
+    margin-bottom: 20px;
+    padding: 0;
+    background: transparent;
+}
+
+#Breadcrumbs ul { gap: 8px; }
+#Breadcrumbs li { color: var(--muted); font-size: 13px; }
+#Breadcrumbs a { color: var(--accent); font-weight: 600; }
+
+.editable_content { margin-top: 0; }
+.district { background: transparent; }
+
+.tableWrap {
+    min-width: 100%;
+    overflow: auto;
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    background: #fff;
+    box-shadow: 0 5px 18px rgba(31, 48, 76, .045);
+    scrollbar-color: #b8c6dc #f1f4f8;
+    scrollbar-width: thin;
+}
+
+#teamHistoryTable {
+    min-width: 1080px;
+    border-collapse: separate;
+    border-spacing: 0;
+    table-layout: fixed;
+}
+
+#teamHistoryTable td {
+    height: 116px;
+    padding: 10px 6px;
+    border: 0;
+    border-right: 1px solid #edf0f4;
+    border-bottom: 1px solid #edf0f4;
+    background: #fff;
+    transition: background-color .18s ease, box-shadow .18s ease;
+}
+
+#teamHistoryTable tr:last-child td { border-bottom: 0; }
+#teamHistoryTable td:last-child { border-right: 0; }
+#teamHistoryTable tbody tr:nth-child(even) td { background: #fbfcfe; }
+#teamHistoryTable tbody tr:hover td { background-color: #f5f8fd; }
+
+#teamHistoryTable .year-cell {
+    position: sticky;
+    left: 0;
+    z-index: 2;
+    width: 78px;
+    color: #344f83;
+    background: #f0f4fa !important;
+    box-shadow: 5px 0 10px rgba(36, 57, 88, .045);
+    font-size: 15px;
+    letter-spacing: .02em;
+}
+
+#teamHistoryTable .team-cell {
+    min-width: 82px;
+    height: 116px;
+    padding: 10px 6px;
+}
+
+.team-logo {
+    width: 46px;
+    height: 46px;
+    filter: drop-shadow(0 2px 2px rgba(25, 37, 55, .12));
+    transition: transform .2s ease;
+}
+
+.team-cell:hover .team-logo { transform: translateY(-2px) scale(1.04); }
+
+.team-name {
+    margin-top: 7px;
+    color: #26354a;
+    font-size: 11px;
+    font-weight: 650;
+    line-height: 1.35;
+}
+
+#teamHistoryTable .champion-cell {
+    position: relative;
+    z-index: 1;
+    background: linear-gradient(155deg, #fff9e9, #fffdf7) !important;
+    box-shadow: inset 0 0 0 2px #d8ad54, 0 2px 10px rgba(183, 137, 37, .1);
+}
+
+.champion-badge {
+    display: inline-block;
+    margin-top: 5px;
+    padding: 2px 7px;
+    border: 1px solid #f0d99c;
+    border-radius: 99px;
+    background: #fff5d9;
+    color: #795812;
+    font-size: 10px;
+    font-weight: 750;
+}
+
+.trophy-toggle,
+.set-champion-button {
+    border: 1px solid #e4d5af;
+    border-radius: 99px;
+    background: rgba(255,255,255,.94);
+    box-shadow: 0 1px 3px rgba(36, 50, 70, .08);
+    transition: opacity .18s ease, transform .18s ease, background .18s ease, box-shadow .18s ease;
+}
+
+.trophy-toggle {
+    min-width: 32px;
+    padding: 2px 7px;
+    color: #745511;
+}
+
+.trophy-toggle:hover,
+.set-champion-button:hover {
+    transform: translateY(-1px);
+    background: #fff8e5;
+    box-shadow: 0 3px 9px rgba(36, 50, 70, .12);
+}
+
+.set-champion-button {
+    padding: 4px 7px;
+    color: #465d86;
+    font-size: 10px;
+    opacity: 0;
+}
+
+.team-cell:hover .set-champion-button,
+.set-champion-button:focus-visible { opacity: 1; }
+
+.empty-cell { background: #f8fafc !important; }
+
+@media (max-width: 768px) {
+    body { padding: 10px; }
+    #Content { padding: 18px 14px; border-radius: 16px; }
+    #teamHistoryTable { min-width: 1010px; }
+    #teamHistoryTable td, #teamHistoryTable .team-cell { height: 104px; }
+    #teamHistoryTable .team-cell { min-width: 76px; }
+    .team-logo { width: 40px; height: 40px; }
+    .set-champion-button { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; }
+}
+
+/* 2003 年球隊合併沿革 */
+#teamHistoryTable .merger-cell {
+    position: relative;
+    height: auto;
+    padding: 12px 18px;
+    border-right: 0;
+    background: linear-gradient(90deg, #f7f9fc, #fffdf7 48%, #f7f9fc) !important;
+}
+
+.merger-cell::before,
+.merger-cell::after {
+    position: absolute;
+    top: 50%;
+    width: 12%;
+    height: 1px;
+    background: #dbe2ec;
+    content: "";
+}
+
+.merger-cell::before { left: 0; }
+.merger-cell::after { right: 0; }
+
+.merger-relationship {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(6px, 1.3vw, 18px);
+    min-height: 32px;
+    color: #56657a;
+    font-size: 12px;
+}
+
+.merger-relationship + .merger-relationship { margin-top: 5px; }
+
+.merger-source,
+.merger-result {
+    padding: 4px 10px;
+    border: 1px solid #e2e8f0;
+    border-radius: 999px;
+    background: #fff;
+    white-space: nowrap;
+}
+
+.merger-source { color: #64748b; }
+.merger-plus { color: #8c9ab0; font-size: 13px; font-weight: 700; }
+.merger-arrow { color: #b58a35; font-size: 18px; font-weight: 700; }
+.merger-result {
+    border-color: #e7d6a9;
+    background: #fff9e9;
+    color: #725619;
+    font-weight: 700;
+}
+
+@media (max-width: 768px) {
+    #teamHistoryTable .merger-cell { padding: 10px 4px; }
+    .merger-cell::before, .merger-cell::after { display: none; }
+    .merger-relationship { gap: 5px; font-size: 10px; }
+    .merger-source, .merger-result { padding: 4px 6px; }
+}
+
+/* 2003 年兩支球隊同列為一個視覺整體，跨越三個時間軸欄位。 */
+#teamHistoryTable .year-2003-group {
+    padding: 8px 10px;
+    background: linear-gradient(135deg, #f8fafc, #fffdf7) !important;
+}
+
+.year-2003-group-teams {
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    gap: 8px;
+    height: 100%;
+}
+
+#teamHistoryTable .year-2003-group-item {
+    flex: 1 1 0;
+    min-width: 0;
+    border: 1px solid rgba(72, 87, 108, .12);
+    border-radius: 12px;
+}
+
+@media (max-width: 768px) {
+    #teamHistoryTable .year-2003-group { padding: 6px 4px; }
+    .year-2003-group-teams { gap: 4px; }
+    #teamHistoryTable .year-2003-group-item { padding: 6px 2px; }
+}
