@@ -1,0 +1,38 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isChampionshipAdmin() {
+      return isSignedIn() && request.auth.token.admin == true;
+    }
+
+    function isValidChampionship() {
+      let data = request.resource.data;
+      return data.keys().hasAll([
+          'firstHalf', 'secondHalf', 'singleSeason', 'annual', 'updatedAt', 'updatedBy'
+        ])
+        && data.keys().hasOnly([
+          'firstHalf', 'secondHalf', 'singleSeason', 'annual', 'updatedAt', 'updatedBy'
+        ])
+        && (data.firstHalf == null || data.firstHalf is string)
+        && (data.secondHalf == null || data.secondHalf is string)
+        && (data.singleSeason == null || data.singleSeason is string)
+        && data.annual is string
+        && data.annual.size() > 0
+        && data.updatedAt is timestamp
+        && data.updatedBy == request.auth.uid;
+    }
+
+    match /championships/{year} {
+      allow get, list: if isSignedIn();
+      allow create, update: if isChampionshipAdmin()
+        && year.matches('^(199[0-9]|20(0[0-9]|1[0-9]|2[0-6]))$')
+        && isValidChampionship();
+      allow delete: if false;
+    }
+  }
+}

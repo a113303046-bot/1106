@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#12372d">
+    <meta name="description" content="中華職棒球隊沿革與年度冠軍紀錄。">
+    <title>中華職棒球隊沿革｜棒球史冊</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="Center">
+        <div id="Content">
+            <header class="PageTitle">
+                <div class="title-copy">
+                    <p class="eyebrow">CPBL <span>·</span> CLUB ARCHIVE</p>
+                    <h2 id="page-title">會員登入</h2>
+                    <p class="title-subtitle" id="page-subtitle">登入後即可瀏覽中華職棒球隊沿革與年度紀錄。</p>
+                </div>
+                <div class="header-actions">
+                    <button class="auth-open-button" id="auth-open-button" type="button" aria-haspopup="dialog" aria-controls="auth-dialog">會員登入</button>
+                    <div class="baseball-mark" aria-hidden="true"><span></span></div>
+                </div>
+            </header>
+            <nav id="Breadcrumbs" aria-label="頁面導覽" hidden><div><ul><li><a href="#team-history">中華職棒</a></li><li id="breadcrumb-page-label" aria-current="page">球隊沿革</li></ul></div></nav>
+            <dialog class="auth-dialog" id="auth-dialog" aria-labelledby="auth-title">
+                <button class="auth-close-button" id="auth-close-button" type="button" aria-label="關閉會員視窗">×</button>
+                <section class="auth-panel" aria-labelledby="auth-title">
+                <div class="auth-heading"><span class="auth-icon" aria-hidden="true">✦</span><div><p class="section-kicker">MEMBER ACCESS</p><h3 id="auth-title">會員登入</h3><p class="auth-prompt" id="auth-prompt">請登入或註冊，開啟球隊沿革檔案。</p></div></div>
+                <form id="auth-form" class="auth-form">
+                    <label for="auth-email">電子郵件</label>
+                    <input id="auth-email" name="email" type="email" autocomplete="email" required maxlength="254" autofocus>
+                    <label for="auth-password">密碼（至少 6 個字元）</label>
+                    <input id="auth-password" name="password" type="password" autocomplete="new-password" minlength="6" required>
+                    <div class="auth-actions">
+                        <button id="signup-button" type="button">註冊</button>
+                        <button id="signin-button" class="secondary" type="button">登入</button>
+                        <button id="signout-button" class="secondary" type="button" hidden>登出</button>
+                        <a id="admin-nav-link" class="admin-link" href="#championship-admin" hidden>冠軍後台</a>
+                    </div>
+                </form>
+                <p id="auth-status" role="status" aria-live="polite"></p>
+                <p id="auth-user" class="auth-user" hidden></p>
+                </section>
+            </dialog>
+            <dialog class="team-profile-dialog" id="team-profile-dialog" aria-labelledby="team-profile-title">
+                <button class="team-profile-close" id="team-profile-close" type="button" aria-label="關閉球隊介紹">×</button>
+                <article class="team-profile-content">
+                    <p class="section-kicker">SEASON ARCHIVE · 2020</p>
+                    <p class="team-profile-season">中華職棒 31 年</p>
+                    <h3 id="team-profile-title">中信兄弟｜CHASE</h3>
+                    <p class="team-profile-summary">丘昌榮接任總教練並強化本土打線，順利奪下上半季冠軍；卻在總冠軍賽3勝1敗聽牌下遭統一獅逆轉，苦吞「七年六亞」。</p>
+                    <div class="team-profile-facts" aria-label="2020 球季摘要">
+                        <div><strong>67 勝・51 敗・2 和</strong><span>例行賽戰績｜勝率 .568｜全年第一</span></div>
+                        <div><strong>上半季冠軍</strong><span>隊史第 16 座季冠軍</span></div>
+                        <div><strong>臺灣大賽 3 勝 4 敗</strong><span>第七戰以 4：7 不敵統一獅</span></div>
+                    </div>
+                    <section class="team-profile-highlights" aria-labelledby="team-profile-highlights-title">
+                        <h4 id="team-profile-highlights-title">球季重點</h4>
+                        <ul>
+                            <li>因疫情延後開季，4 月 12 日在臺中洲際迎來主場開幕，也成為中職 31 年首場正式開打的例行賽。</li>
+                            <li>7 月 14 日續打 5 月 26 日的保留比賽，德保拉完投九局僅失一分，率隊以 6：1 擊敗統一獅，拿下上半季冠軍。</li>
+                            <li>7 月 1 日以 20：0 大勝樂天桃猿，單場五支三分砲改寫聯盟紀錄。</li>
+                            <li>德保拉獲年度 MVP，並拿下勝投、防禦率、三振三項投手個人獎。</li>
+                            <li>周思齊於 7 月 31 日達成個人生涯 1,600 安；球隊於 5 月 14 日締造隊史 30,000 安里程碑。</li>
+                        </ul>
+                    </section>
+                    <nav class="team-profile-sources" aria-label="資料來源">
+                        <span>資料來源</span>
+                        <a href="https://twbsball.dils.tku.edu.tw/index.php?title=%E4%B8%AD%E4%BF%A1%E5%85%84%E5%BC%9F%E9%9A%8A/%E4%B8%AD%E4%BF%A1%E5%85%84%E5%BC%9F%E9%9A%8A%E7%9A%84%E8%81%B7%E6%A3%92%E4%B8%83%E5%B9%B4" target="_blank" rel="noopener noreferrer">台灣棒球維基館</a>
+                        <a href="https://www.brothers.tw/POR0115_" target="_blank" rel="noopener noreferrer">中信兄弟官方年表</a>
+                        <a href="https://cpbl.com.tw/xmdoc/cont?sid=0L132506819280022652" target="_blank" rel="noopener noreferrer">CPBL 上半季封王</a>
+                        <a href="https://cpbl.com.tw/xmdoc/cont?sid=0L132506760685644373" target="_blank" rel="noopener noreferrer">CPBL 年度頒獎</a>
+                        <a href="https://cpbl.com.tw/xmdoc/cont?sid=0L132506761942240372" target="_blank" rel="noopener noreferrer">CPBL 臺灣大賽第七戰</a>
+                    </nav>
+                </article>
+            </dialog>
+            <dialog class="team-profile-dialog game-summary-dialog" id="champion-game-dialog" aria-labelledby="champion-game-title">
+                <button class="team-profile-close" id="champion-game-close" type="button" aria-label="關閉冠軍賽事簡介">×</button>
+                <article class="team-profile-content">
+                    <p class="section-kicker">CHAMPIONSHIP GAME · 2026 SECOND HALF</p>
+                    <p class="team-profile-season">中華職棒 37 年｜下半季封王戰</p>
+                    <h3 id="champion-game-title">中信兄弟 12：1 台鋼雄鷹</h3>
+                    <p class="team-profile-summary">中信兄弟在例行賽最後一戰擊敗台鋼雄鷹，拿下 2026 年下半季冠軍，取得季後挑戰賽資格。</p>
+                    <div class="team-profile-facts" aria-label="比賽資訊">
+                        <div><strong>12：1</strong><span>中信兄弟勝台鋼雄鷹</span></div>
+                        <div><strong>20,000 人</strong><span>觀眾人數｜洲際球場滿場</span></div>
+                        <div><strong>2026 年 10 月 4 日</strong><span>臺中洲際棒球場｜例行賽第 270 場</span></div>
+                    </div>
+                    <section class="team-profile-highlights" aria-labelledby="champion-game-highlights-title">
+                        <h4 id="champion-game-highlights-title">比賽重點</h4>
+                        <ul>
+                            <li>中信兄弟全隊敲出 13 支安打，沒有失誤。</li>
+                            <li>王威晨單場 3 安、4 打點，帶動球隊攻勢。</li>
+                            <li>先發投手羅戈主投 7 局，被敲 4 安、送出 5 次三振，失 1 分。</li>
+                            <li>這座下半季冠軍是中信兄弟隊史第 21 座季冠軍。</li>
+                        </ul>
+                    </section>
+                    <nav class="team-profile-sources" aria-label="比賽資料來源">
+                        <span>比賽資料</span>
+                        <a href="https://www.cpbl.com.tw/box/index?gameSno=270&amp;year=2026&amp;kindCode=A" target="_blank" rel="noopener noreferrer">CPBL 官方比賽盒分 ↗</a>
+                        <a href="https://www.cna.com.tw/news/aspt/202610040185.aspx" target="_blank" rel="noopener noreferrer">中央社封王賽報導 ↗</a>
+                    </nav>
+                </article>
+            </dialog>
+            <dialog class="team-profile-dialog" id="season-profile-dialog" aria-labelledby="season-profile-title">
+                <button class="team-profile-close" id="season-profile-close" type="button" aria-label="關閉球隊年度簡介">×</button>
+                <article class="team-profile-content" id="season-profile-content">
+                    <p class="section-kicker">SEASON ARCHIVE</p>
+                    <h3 id="season-profile-title">球隊年度簡介</h3>
+                </article>
+            </dialog>
+            <dialog class="team-profile-dialog year-archive-dialog" id="year-archive-dialog" aria-labelledby="year-archive-title">
+                <button class="team-profile-close" id="year-archive-close" type="button" aria-label="關閉年度戰績">×</button>
+                <article class="team-profile-content" id="year-archive-content"></article>
+            </dialog>
+            <section class="history-section" id="team-history" aria-labelledby="history-title" hidden>
+                <nav class="history-page-nav" aria-label="棒球史冊頁面">
+                    <a href="#team-history-page" aria-current="page">球隊沿革</a>
+                    <a href="#championship-stats-page">冠軍條狀圖</a>
+                    <a href="#international-history-page">國際賽沿革</a>
+                </nav>
+                <div class="history-page-view" id="team-history-page">
+                <div class="history-heading">
+                    <div><p class="section-kicker">THE CLUB TIMELINE</p><h3 id="history-title">年度球隊一覽</h3></div>
+                    <div class="history-meta">
+                        <div class="champion-legend" aria-label="冠軍標記說明">
+                            <span class="legend-item"><span class="champion-mark champion-mark-first-half"><svg class="champion-mark-trophy" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h10v4a5 5 0 0 1-10 0V3Zm3 8h4v4h4v2H7v-2h3v-4Zm-4 8h12v2H6v-2Z"/><path class="champion-mark-trophy-handles" d="M7 4H4v2a5 5 0 0 0 4 4.9M17 4h3v2a5 5 0 0 1-4 4.9"/><text class="champion-mark-trophy-label" x="12" y="8">上</text></svg></span><span>上半季</span></span>
+                            <span class="legend-item"><span class="champion-mark champion-mark-second-half"><svg class="champion-mark-trophy" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h10v4a5 5 0 0 1-10 0V3Zm3 8h4v4h4v2H7v-2h3v-4Zm-4 8h12v2H6v-2Z"/><path class="champion-mark-trophy-handles" d="M7 4H4v2a5 5 0 0 0 4 4.9M17 4h3v2a5 5 0 0 1-4 4.9"/><text class="champion-mark-trophy-label" x="12" y="8">下</text></svg></span><span>下半季</span></span>
+                            <span class="legend-item"><span class="champion-mark champion-mark-annual"><svg class="champion-mark-trophy" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h10v4a5 5 0 0 1-10 0V3Zm3 8h4v4h4v2H7v-2h3v-4Zm-4 8h12v2H6v-2Z"/><path class="champion-mark-trophy-handles" d="M7 4H4v2a5 5 0 0 0 4 4.9M17 4h3v2a5 5 0 0 1-4 4.9"/><text class="champion-mark-trophy-label" x="12" y="8">1</text></svg></span><span>年度總冠軍</span></span>
+                            <span class="legend-item"><span class="champion-mark champion-mark-tml"><svg class="champion-mark-trophy" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h10v4a5 5 0 0 1-10 0V3Zm3 8h4v4h4v2H7v-2h3v-4Zm-4 8h12v2H6v-2Z"/><path class="champion-mark-trophy-handles" d="M7 4H4v2a5 5 0 0 0 4 4.9M17 4h3v2a5 5 0 0 1-4 4.9"/><text class="champion-mark-trophy-label" x="12" y="8">TML</text></svg></span><span>台灣大聯盟總冠軍</span></span>
+                            <span class="legend-item"><span class="champion-mark champion-mark-full-season"><svg class="champion-mark-trophy" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3h10v4a5 5 0 0 1-10 0V3Zm3 8h4v4h4v2H7v-2h3v-4Zm-4 8h12v2H6v-2Z"/><path class="champion-mark-trophy-handles" d="M7 4H4v2a5 5 0 0 0 4 4.9M17 4h3v2a5 5 0 0 1-4 4.9"/><text class="champion-mark-trophy-label" x="12" y="8">全</text></svg></span><span>全年戰績第一</span></span>
+                            <span class="legend-item challenge-legend-item"><svg class="challenge-series-icon challenge-series-sword" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.7 2.6 14.5 4l-5.4 5.4 3.5 3.5L18 7.5l2.7-4.9ZM8.1 10.4l5.5 5.5m-5.4-2.7-2.5 2.5m4.4-4.4-2.5 2.5m-1.4-1.4-3.6 3.6 3.1 3.1 3.6-3.6"/></svg><span>挑戰賽勝者</span></span>
+                            <span class="legend-item challenge-legend-item"><img class="challenge-series-icon challenge-series-broken-bat" src="image/斷棒.png" alt="" aria-hidden="true"><span>挑戰賽敗者</span></span>
+                        </div>
+                        <div class="history-meta-links">
+                            <p class="scroll-hint"><span aria-hidden="true">↔</span> 左右滑動瀏覽各隊</p>
+                            <a class="champion-source" href="https://zxc22.idv.tw/champ.asp?clickflag=999" target="_blank" rel="noopener noreferrer">冠軍資料來源 ↗</a>
+                        </div>
+                    </div>
+                </div>
+            <div class="editable_content">
+                <div class="district">
+                    <div class="TeamHistoryTimeLine">
+                        <div class="timeline_outer">
+                            <div class="tableWrap">
+                                <table id="teamHistoryTable"><tbody id="team-history-body"></tbody></table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                <section class="admin-panel" id="championship-admin" aria-labelledby="admin-title" hidden>
+                    <div class="admin-heading">
+                        <div><p class="section-kicker">ADMINISTRATION</p><h3 id="admin-title">年度冠軍設定</h3></div>
+                        <p class="admin-description">只有具備 Firebase admin 權限的帳號可以儲存；更新會同步給所有登入者。</p>
+                    </div>
+                    <p class="admin-status" id="admin-status" role="status" aria-live="polite">載入後台資料中……</p>
+                    <div class="admin-controls">
+                        <label class="admin-year-field" for="admin-year">選擇年度
+                            <select id="admin-year"></select>
+                        </label>
+                        <div class="admin-champion-fields">
+                            <label class="admin-field" id="admin-first-half-field" for="admin-first-half">上半季冠軍
+                                <select id="admin-first-half"></select>
+                            </label>
+                            <label class="admin-field" id="admin-second-half-field" for="admin-second-half">下半季冠軍
+                                <select id="admin-second-half"></select>
+                            </label>
+                            <label class="admin-field" id="admin-single-season-field" for="admin-single-season" hidden>單一球季冠軍
+                                <select id="admin-single-season"></select>
+                            </label>
+                            <label class="admin-field" for="admin-annual">年度總冠軍
+                                <select id="admin-annual"></select>
+                            </label>
+                        </div>
+                        <div class="admin-actions">
+                            <button id="save-championship-year" type="button">儲存此年度</button>
+                            <button id="import-championship-defaults" class="secondary" type="button" hidden>補齊未登錄年度</button>
+                        </div>
+                    </div>
+                </section>
+                </div>
+                <section class="history-page-view championship-stats-page" id="championship-stats-page" aria-labelledby="championship-stats-title" hidden>
+                    <div class="stats-heading">
+                        <div><p class="section-kicker">CHAMPIONSHIP RECORDS</p><h3 id="championship-stats-title">冠軍條狀圖</h3></div>
+                    </div>
+                    <div class="champion-charts">
+                        <section class="champion-chart-card" aria-labelledby="annual-chart-title">
+                            <div class="chart-card-heading"><div><p class="section-kicker">ANNUAL CHAMPIONS</p><h4 id="annual-chart-title">年度總冠軍</h4></div><span class="chart-unit">次</span></div>
+                            <ol class="champion-chart-list" id="annual-champion-chart" aria-label="各傳承球隊年度總冠軍次數"></ol>
+                            <p class="chart-footnote">1997–2002 年另計入台灣大聯盟年度總冠軍。</p>
+                        </section>
+                        <section class="champion-chart-card" aria-labelledby="full-season-chart-title">
+                            <div class="chart-card-heading"><div><p class="section-kicker">FULL-SEASON LEADERS</p><h4 id="full-season-chart-title">全年冠軍</h4></div><span class="chart-unit">次</span></div>
+                            <ol class="champion-chart-list" id="full-season-champion-chart" aria-label="各傳承球隊全年戰績第一次數"></ol>
+                            <p class="chart-footnote">包含單一球季與台灣大聯盟全年第一。</p>
+                        </section>
+                        <section class="champion-chart-card" aria-labelledby="half-chart-title">
+                            <div class="chart-card-heading"><div><p class="section-kicker">HALF-SEASON CHAMPIONS</p><h4 id="half-chart-title">半季冠軍</h4></div><span class="chart-unit">上、下半季合計</span></div>
+                            <div class="chart-legend" aria-label="半季冠軍圖例"><span><i class="chart-legend-first"></i>上半季</span><span><i class="chart-legend-second"></i>下半季</span></div>
+                            <ol class="champion-chart-list" id="half-season-champion-chart" aria-label="各傳承球隊上、下半季冠軍次數"></ol>
+                            <p class="chart-footnote">1998、1999 年為單一球季，未列入半季冠軍統計。</p>
+                        </section>
+                    </div>
+                </section>
+                <section class="history-page-view international-history-page" id="international-history-page" aria-labelledby="international-history-title" hidden>
+                    <div class="international-heading">
+                        <div><p class="section-kicker">INTERNATIONAL RESULTS</p><h3 id="international-history-title">國際賽成績沿革</h3></div>
+                        <p class="international-intro">從 1969 年開始整理；每格以「賽事/成績」表示，例如「12強/第一名」。</p>
+                    </div>
+                    <div class="international-toolbar">
+                        <button class="international-scroll-button" id="international-scroll-left" type="button" aria-label="向左瀏覽較前面的賽事欄">‹</button>
+                        <p class="international-scroll-hint"><span aria-hidden="true">↔</span> 使用按鈕左右瀏覽賽事欄</p>
+                        <button class="international-scroll-button" id="international-scroll-right" type="button" aria-label="向右瀏覽較後面的賽事欄">›</button>
+                    </div>
+                    <p class="international-history-status" id="international-history-status" role="status" aria-live="polite"></p>
+                    <div class="international-table-wrap" tabindex="0" aria-label="國際賽成績表，可左右捲動">
+                        <table class="international-results-table">
+                            <caption>1969 年起中華隊國際賽成績，依年度與代表隊層級排列</caption>
+                            <thead id="international-results-head"></thead>
+                            <tbody id="international-results-body"></tbody>
+                        </table>
+                    </div>
+                    <nav class="international-sources" aria-label="少棒欄成績來源">
+                        <span>少棒欄成績來源</span>
+                        <a href="https://twbsball.dils.tku.edu.tw/index.php?title=LLB%E4%B8%96%E7%95%8C%E5%B0%91%E6%A3%92%E9%8C%A6%E6%A8%99%E8%B3%BD" target="_blank" rel="noopener noreferrer">台灣棒球維基館 ↗</a>
+                        <a href="https://twbsball.dils.tku.edu.tw/index.php?title=%E4%BA%9E%E6%B4%B2%E5%B0%91%E6%A3%92%E9%8C%A6%E6%A8%99%E8%B3%BD" target="_blank" rel="noopener noreferrer">亞洲少棒維基館 ↗</a>
+                        <a href="https://twbsball.dils.tku.edu.tw/index.php?title=U-12%E4%B8%96%E7%95%8C%E7%9B%83%E6%A3%92%E7%90%83%E8%B3%BD" target="_blank" rel="noopener noreferrer">U12 世界盃維基館 ↗</a>
+                        <a href="https://zh.wikipedia.org/wiki/%E4%BA%9E%E6%B4%B2%E5%B0%91%E6%A3%92%E9%8C%A6%E6%A8%99%E8%B3%BD" target="_blank" rel="noopener noreferrer">亞洲少棒歷屆名次 ↗</a>
+                        <a href="https://zh.wikipedia.org/wiki/U-12%E4%B8%96%E7%95%8C%E7%9B%83%E棒球賽" target="_blank" rel="noopener noreferrer">U12 世界盃歷屆名次 ↗</a>
+                        <a href="https://www.wbsc.org/en/events/2025-viii-u-12-baseball-world-cup/schedule-and-results" target="_blank" rel="noopener noreferrer">WBSC 2025 賽果 ↗</a>
+                        <a href="https://www.tllb.org.tw/world" target="_blank" rel="noopener noreferrer">台灣世界少棒聯盟歷年成績 ↗</a>
+                        <a href="https://www.cna.com.tw/news/aspt/201612130312.aspx" target="_blank" rel="noopener noreferrer">中央社 2016 亞少成績 ↗</a>
+                        <a href="https://www.mdnkids.com/content.asp?Link_String_=248G00000KPGGAT" target="_blank" rel="noopener noreferrer">國語日報 2026 亞少成績 ↗</a>
+                        <a href="https://www.littleleague.org/world-series/2026/llbws/news/south-korea-to-represent-the-asia-pacific-region-at-the-2026-little-league-baseball-world-series-presented-by-t-mobile/" target="_blank" rel="noopener noreferrer">2026 亞太賽 ↗</a>
+                        <span>LLB 僅列至 1996 年退出前；其他少棒賽事照年列錄。LLB 無世界賽名次時標示「遠東區止步」。</span>
+                    </nav>
+                    <nav class="international-sources" aria-label="青少棒欄成績來源">
+                        <span>青少棒欄成績來源</span>
+                        <a href="https://twbsball.dils.tku.edu.tw/index.php?title=LLB%E4%B8%96%E7%95%8C%E9%9D%92%E5%B0%91%E6%A3%92%E9%8C%A6%E6%A8%99%E8%B3%BD" target="_blank" rel="noopener noreferrer">LLB 世界青少棒維基館 ↗</a>
+                        <a href="https://twbsball.dils.tku.edu.tw/index.php?title=U-15%E4%B8%96%E7%95%8C%E7%9B%83%E6%A3%92%E7%90%83%E8%B3%BD" target="_blank" rel="noopener noreferrer">U15 世界盃維基館 ↗</a>
+                        <a href="https://twbsball.dils.tku.edu.tw/index.php?title=%E4%BA%9E%E6%B4%B2%E9%9D%92%E5%B0%91%E6%A3%92%E9%8C%A6%E6%A8%99%E8%B3%BD" target="_blank" rel="noopener noreferrer">亞洲青少棒維基館 ↗</a>
+                        <a href="https://static.wbsc.org/upload/390f0352-2a3d-7180-5163-0cce664a88f8.pdf" target="_blank" rel="noopener noreferrer">WBSC U15 歷屆資料 ↗</a>
+                        <a href="https://en.wikipedia.org/wiki/Senior_League_World_Series_(Asia%E2%80%93Pacific_Region)" target="_blank" rel="noopener noreferrer">Senior League 亞太區歷年名次 ↗</a>
+                        <span>表列 1972–1996 年 LLB Senior League、1989 年起 U15 世界青少棒賽及 2000 年起亞洲青少棒錦標賽成績；2007 年 U15 賽事未獲認可，不列入。</span>
+                    </nav>
+                    <nav class="international-sources" aria-label="青棒欄成績來源">
+                        <span>青棒欄成績來源</span>
+                        <a href="https://twbsball.dils.tku.edu.tw/index.php?title=LLB%E4%B8%96%E7%95%8C%E9%9D%92%E6%A3%92%E9%8C%A6%E6%A8%99%E8%B3%BD" target="_blank" rel="noopener noreferrer">LLB 世界青棒維基館 ↗</a>
+                        <a href="https://twbsball.dils.tku.edu.tw/index.php?title=U-18%E4%B8%96%E7%95%8C%E7%9B%83%E6%A3%92%E7%90%83%E8%B3%BD" target="_blank" rel="noopener noreferrer">U18 世界盃維基館 ↗</a>
+                        <a href="https://twbsball.dils.tku.edu.tw/index.php?title=%E4%BA%9E%E6%B4%B2%E9%9D%92%E6%A3%92%E9%8C%A6%E6%A8%99%E8%B3%BD" target="_blank" rel="noopener noreferrer">亞洲青棒（亞青）維基館 ↗</a>
+                        <a href="https://www.japan-baseball.jp/en/games/u18worldcup2025/" target="_blank" rel="noopener noreferrer">U18 世界盃 2025 官方賽果 ↗</a>
+                        <a href="https://en.wikipedia.org/wiki/Big_League_World_Series_(Asia%E2%80%93Pacific_Region)" target="_blank" rel="noopener noreferrer">Big League 亞太區歷年名次 ↗</a>
+                        <span>表列 1974–1996 年 LLB Big League 世界賽結果、1983 年起 U18 世界青棒／世界盃成績及 1994 年起亞洲青棒（亞青）錦標賽成績；2020 年亞青賽取消，2021 年 U18 世界盃延至 2022 年舉行。</span>
+                    </nav>
+                    <nav class="international-sources" aria-label="成棒欄成績來源">
+                        <span>成棒欄成績來源</span>
+                        <a href="https://twbsball.dils.tku.edu.tw/index.php?title=U-23%E4%B8%96%E7%95%8C%E7%9B%83%E6%A3%92%E7%90%83%E8%B3%BD" target="_blank" rel="noopener noreferrer">U23 世界盃維基館 ↗</a>
+                        <a href="https://i.japan-baseball.jp/en/team/23u/2026/worldcup/overview.html" target="_blank" rel="noopener noreferrer">U23 世界盃 2026 官方賽果 ↗</a>
+                        <span>表列 U23 世界盃成績；2014 年賽事為前身 21U 世界盃，原定 2020 年賽事延至 2021 年舉行。</span>
+                    </nav>
+                    <nav class="international-sources" aria-label="一級賽事欄成績來源">
+                        <span>一級賽事欄成績來源</span>
+                        <a href="https://twbsball.dils.tku.edu.tw/index.php?title=%E4%B8%96%E7%95%8C%E6%A3%92%E7%90%83%E7%B6%93%E5%85%B8%E8%B3%BD" target="_blank" rel="noopener noreferrer">世界棒球經典賽維基館 ↗</a>
+                        <a href="https://twbsball.dils.tku.edu.tw/index.php?title=%E5%A5%A7%E6%9E%97%E5%8C%B9%E5%85%8B%E9%81%8B%E5%8B%95%E6%9C%83" target="_blank" rel="noopener noreferrer">奧林匹克運動會維基館 ↗</a>
+                        <span>表列各屆經典賽名次、資格賽名次與晉級會內賽紀錄；正式奧運棒球屆次均列錄，中華隊未參賽時標示「未參賽」，並列1984、1988年示範賽成績。</span>
+                    </nav>
+                    <nav class="international-sources" aria-label="亞洲欄成績來源">
+                        <span>亞洲欄成績來源</span>
+                        <a href="https://twbsball.dils.tku.edu.tw/index.php?title=%E4%BA%9E%E6%B4%B2%E6%A3%92%E7%90%83%E9%8C%A6%E6%A8%99%E8%B3%BD" target="_blank" rel="noopener noreferrer">亞洲棒球錦標賽維基館 ↗</a>
+                        <a href="https://twbsball.dils.tku.edu.tw/index.php?title=%E4%BA%9E%E6%B4%B2%E9%81%8B%E5%8B%95%E6%9C%83" target="_blank" rel="noopener noreferrer">亞洲運動會維基館 ↗</a>
+                        <a href="https://twbsball.dils.tku.edu.tw/index.php?title=%E4%BA%9E%E6%B4%B2%E8%81%B7%E6%A3%92%E5%86%A0%E8%BB%8D%E7%88%AD%E9%9C%B8%E8%B3%BD" target="_blank" rel="noopener noreferrer">亞洲職棒冠軍爭霸賽維基館 ↗</a>
+                        <a href="https://i.japan-baseball.jp/en/team/amateur/2025/asianchampionship/overview.html" target="_blank" rel="noopener noreferrer">亞錦賽 2025 官方賽果 ↗</a>
+                        <a href="https://i.japan-baseball.jp/en/team/amateur/2026/asiangames/overview.html" target="_blank" rel="noopener noreferrer">亞運棒球 2026 官方賽果 ↗</a>
+                        <span>表列 1969 年起各屆亞洲棒球錦標賽、1990 年起亞運棒球及 2017 年起亞洲職棒冠軍爭霸賽名次；1990 年亞運棒球為示範賽。</span>
+                    </nav>
+
+                </section>
+            </section>
+        </div>
+    </div>
+    <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore-compat.js"></script>
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyAMUyiC7h_Yy57lsRaNneqY_9z6Kp_Ag2Y",
+            authDomain: "project-8285027657505595761.firebaseapp.com",
+            projectId: "project-8285027657505595761",
+            storageBucket: "project-8285027657505595761.firebasestorage.app",
+            messagingSenderId: "343594574297",
+            appId: "1:343594574297:web:e122956794aa9b1dae79c8",
+            measurementId: "G-V1FQ5Q79G6"
+        };
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const form = document.getElementById('auth-form');
+        const emailInput = document.getElementById('auth-email');
+        const passwordInput = document.getElementById('auth-password');
+        const status = document.getElementById('auth-status');
+        const userDisplay = document.getElementById('auth-user');
+        const signupButton = document.getElementById('signup-button');
+        const signinButton = document.getElementById('signin-button');
+        const signoutButton = document.getElementById('signout-button');
+        const authDialog = document.getElementById('auth-dialog');
+        const authOpenButton = document.getElementById('auth-open-button');
+        const authCloseButton = document.getElementById('auth-close-button');
+        const adminNavLink = document.getElementById('admin-nav-link');
+        const authPanel = document.querySelector('.auth-panel');
+        const authTitle = document.getElementById('auth-title');
+        const authPrompt = document.getElementById('auth-prompt');
+        const historySection = document.getElementById('team-history');
+        const breadcrumbs = document.getElementById('Breadcrumbs');
+        const pageTitle = document.getElementById('page-title');
+        const pageSubtitle = document.getElementById('page-subtitle');
+
+        function setStatus(message, isError = false) {
+            status.textContent = message;
+            status.dataset.state = isError ? 'error' : 'success';
+        }
+        authOpenButton.addEventListener('click', () => authDialog.showModal());
+        authCloseButton.addEventListener('click', () => authDialog.close());
+        adminNavLink.addEventListener('click', () => authDialog.close());
+        authDialog.addEventListener('click', event => {
+            const rect = authDialog.getBoundingClientRect();
+            const clickedOutside = event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom;
+            if (clickedOutside) authDialog.close();
+        });
+        function credentials() {
+            if (!form.reportValidity()) throw new Error('請輸入有效的電子郵件與至少 6 個字元的密碼。');
+            return { email: emailInput.value.trim(), password: passwordInput.value };
+        }
+        function describeAuthError(error) {
+            const messages = {
+                'auth/email-already-in-use': '這個電子郵件已註冊，請直接登入。',
+                'auth/invalid-email': '電子郵件格式不正確。',
+                'auth/weak-password': '密碼強度不足，請使用至少 6 個字元。',
+                'auth/user-disabled': '此帳號目前已停用。',
+                'auth/invalid-credential': '電子郵件或密碼錯誤，請確認後重試。',
+                'auth/network-request-failed': '網路連線失敗，請稍後重試。',
+                'auth/operation-not-allowed': 'Firebase 尚未啟用電子郵件／密碼登入，請到 Authentication 的登入方式設定啟用。',
+                'auth/too-many-requests': '嘗試次數過多，請稍候再試。'
+            };
+            return messages[error.code] || '操作失敗，請確認 Firebase Authentication 設定後重試。';
+        }
+        async function runAuth(action) {
+            signupButton.disabled = signinButton.disabled = true;
+            try {
+                const { email, password } = credentials();
+                await action(email, password);
+                passwordInput.value = '';
+                authDialog.close();
+                setStatus('操作成功。');
+            } catch (error) {
+                setStatus(error.code ? describeAuthError(error) : error.message, true);
+            } finally {
+                signupButton.disabled = signinButton.disabled = false;
+            }
+        }
+        signupButton.addEventListener('click', () => runAuth((email, password) => auth.createUserWithEmailAndPassword(email, password)));
+        signinButton.addEventListener('click', () => runAuth((email, password) => auth.signInWithEmailAndPassword(email, password)));
+        signoutButton.addEventListener('click', async () => {
+            try { await auth.signOut(); authDialog.close(); setStatus('已登出。'); }
+            catch (error) { setStatus(describeAuthError(error), true); }
+        });
+        auth.onAuthStateChanged(user => {
+            const signedIn = Boolean(user);
+            historySection.hidden = !signedIn;
+            breadcrumbs.hidden = !signedIn;
+            authPanel.classList.toggle('is-signed-in', signedIn);
+            userDisplay.hidden = !signedIn;
+            signoutButton.hidden = !signedIn;
+            signupButton.hidden = signinButton.hidden = signedIn;
+            if (user) {
+                authOpenButton.textContent = '會員專區';
+                authTitle.textContent = '會員專區';
+                authPrompt.hidden = true;
+                pageTitle.textContent = '球隊沿革';
+                pageSubtitle.textContent = '從草創到新世代，收藏每一支球隊的棒球記憶。';
+                document.title = '中華職棒球隊沿革｜棒球史冊';
+                userDisplay.textContent = `目前登入：${user.email || '已登入帳號'}`;
+                setStatus('登入成功。');
+            } else {
+                authOpenButton.textContent = '會員登入';
+                authTitle.textContent = '會員登入';
+                authPrompt.hidden = false;
+                pageTitle.textContent = '會員登入';
+                pageSubtitle.textContent = '登入後即可瀏覽中華職棒球隊沿革與年度紀錄。';
+                document.title = '會員登入｜中華職棒球隊沿革';
+                userDisplay.textContent = '';
+                setStatus('登入後即可查看球隊沿革。');
+            }
+        });
+    </script>
+    <!-- Data scripts define shared globals; keep them before the UI logic script. -->
+    <script src="data/team-appearance.js"></script>
+    <script src="data/championship-data.js"></script>
+    <script src="data/year-archive-data.js"></script>
+    <script src="data/challenge-series-data.js"></script>
+    <script src="data/international-history-data.js"></script>
+    <script src="data/team-history-data.js"></script>
+    <script src="js/team-ui.js"></script>
+    <script src="js/team-history.js"></script>
+    <script src="js/profile-dialogs.js"></script>
+    <script src="js/championship-charts.js"></script>
+    <script src="js/international-history.js"></script>
+    <script src="js/championship-admin.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
