@@ -8,9 +8,11 @@ document.addEventListener('DOMContentLoaded', function() {
     renderTeamHistoryTable();
     initializeTeamProfileDialog();
     initializeChampionGameDialog();
+    initializeChampionConfetti();
     initializeSeasonProfileDialog();
     initializeYearArchiveDialog();
     initializeChampionshipAdmin();
+    initializeInternationalHistory();
 
     // 執行初始化函數
     initializeTeamLogos();

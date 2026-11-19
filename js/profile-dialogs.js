@@ -19,11 +19,193 @@ function initializeChampionGameDialog() {
     if (!tableBody || !dialog || !closeButton) return;
 
     tableBody.addEventListener('click', event => {
-        if (event.target instanceof Element && event.target.closest('.champion-mark-trigger')) dialog.showModal();
+        if (!(event.target instanceof Element)) return;
+        const trigger = event.target.closest('.champion-mark-trigger');
+        if (!trigger) return;
+
+        dialog.showModal();
+        requestAnimationFrame(() => {
+            const title = dialog.querySelector('#champion-game-title');
+            if (!dialog.open || !title) return;
+            const dialogBounds = dialog.getBoundingClientRect();
+            const titleBounds = title.getBoundingClientRect();
+            launchChampionshipConfetti({
+                x: titleBounds.left + titleBounds.width / 2 - dialogBounds.left,
+                y: titleBounds.top + titleBounds.height / 2 - dialogBounds.top
+            }, trigger.closest('.team-cell')?.dataset.team, false, dialog);
+        });
     });
     closeButton.addEventListener('click', () => dialog.close());
     dialog.addEventListener('click', event => {
         if (event.target === dialog) dialog.close();
+    });
+}
+
+let championshipConfettiCanvas = null;
+let championshipConfettiFrame = null;
+let championshipConfettiResizeHandler = null;
+
+function getChampionshipConfettiColors(teamName) {
+    const name = String(teamName || '');
+    if (/統一/.test(name)) return ['#f36c21', '#ff8a36', '#ffb45e', '#e85d04'];
+    if (/Rakuten|樂天/.test(name)) return ['#7b1534', '#a02142', '#c24b5e', '#e5b0b4'];
+    if (/Lami(?:n)?go/i.test(name)) return ['#1769aa', '#3f91d2', '#80c5ed', '#c3e4f5'];
+    if (/中信兄弟|兄弟象/.test(name)) return ['#d4a900', '#f5c400', '#ffdf52', '#fff0a6'];
+    if (/味全龍/.test(name)) return ['#a80e27', '#c8102e', '#e63946', '#f26b7a'];
+    if (/興農/.test(name)) return ['#286b32', '#3f8f42', '#70ad59', '#b2d58a'];
+    if (/義大犀牛/.test(name)) return ['#542477', '#7135a0', '#9a68bd', '#cfb6df'];
+    if (/La\s?New|Lawnew/i.test(name)) return ['#12452b', '#1d6038', '#397d4c', '#79a982'];
+    return ['#d4a72c', '#c83d46', '#f5e7b2', '#3478b5', '#438257'];
+}
+
+function launchChampionshipConfetti(origin, teamName, useLongStreamers = false, container = document.body) {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    if (championshipConfettiFrame !== null) cancelAnimationFrame(championshipConfettiFrame);
+    if (championshipConfettiResizeHandler) window.removeEventListener('resize', championshipConfettiResizeHandler);
+    championshipConfettiCanvas?.remove();
+
+    const canvas = document.createElement('canvas');
+    canvas.className = 'championship-confetti-canvas';
+    const isDialogCanvas = container instanceof HTMLDialogElement;
+    if (isDialogCanvas) canvas.classList.add('championship-confetti-canvas-dialog');
+    canvas.setAttribute('aria-hidden', 'true');
+    container.appendChild(canvas);
+    championshipConfettiCanvas = canvas;
+
+    const context = canvas.getContext('2d');
+    if (!context) {
+        canvas.remove();
+        championshipConfettiCanvas = null;
+        return;
+    }
+
+    const pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
+    let horizontalScale = 1;
+    let verticalScale = 1;
+    const getCanvasSize = () => isDialogCanvas
+        ? { width: container.clientWidth, height: container.clientHeight }
+        : { width: window.innerWidth, height: window.innerHeight };
+    const resizeCanvas = () => {
+        const { width, height } = getCanvasSize();
+        horizontalScale = isDialogCanvas ? width / 760 : 1;
+        verticalScale = isDialogCanvas ? height / 520 : 1;
+        canvas.width = Math.round(width * pixelRatio);
+        canvas.height = Math.round(height * pixelRatio);
+        if (!isDialogCanvas) {
+            canvas.style.width = `${width}px`;
+            canvas.style.height = `${height}px`;
+        }
+        context.setTransform(pixelRatio, 0, 0, pixelRatio, 0, 0);
+    };
+    resizeCanvas();
+    championshipConfettiResizeHandler = resizeCanvas;
+
+    const colors = getChampionshipConfettiColors(teamName);
+    const particles = Array.from({ length: useLongStreamers ? 30 : 84 }, () => {
+        const angle = Math.random() * Math.PI * 2;
+        const speed = useLongStreamers ? 1.8 + Math.random() * 4.2 : 2.5 + Math.random() * 6;
+        return {
+            x: origin.x,
+            y: origin.y,
+            vx: useLongStreamers
+                ? (Math.random() - 0.5) * 4.8
+                : Math.cos(angle) * speed * horizontalScale,
+            vy: useLongStreamers
+                ? -1.4 - Math.random() * 2.2
+                : (Math.sin(angle) * speed - (isDialogCanvas ? 1.2 : 2.2)) * verticalScale,
+            gravity: isDialogCanvas && !useLongStreamers ? 0.08 * verticalScale : 0.16,
+            width: useLongStreamers ? 7 + Math.random() * 3 : 4 + Math.random() * 4,
+            height: useLongStreamers ? 0 : 8 + Math.random() * 8,
+            trail: useLongStreamers ? Array.from({ length: 30 }, () => ({ x: origin.x, y: origin.y })) : null,
+            rotation: Math.random() * Math.PI,
+            spin: (Math.random() - 0.5) * 0.24,
+            phase: Math.random() * Math.PI * 2,
+            color: colors[Math.floor(Math.random() * colors.length)]
+        };
+    });
+
+    const startedAt = performance.now();
+    const draw = now => {
+        const elapsed = now - startedAt;
+        const { width, height } = getCanvasSize();
+        context.clearRect(0, 0, width, height);
+        const fade = Math.max(0, 1 - elapsed / 2300);
+        particles.forEach(particle => {
+            if (useLongStreamers) {
+                particle.vx += Math.sin(elapsed / 520 + particle.phase) * 0.003;
+                particle.vy += 0.055;
+                particle.x += particle.vx + Math.sin(elapsed / 260 + particle.phase) * 0.16;
+                particle.y += particle.vy;
+                particle.trail.unshift({ x: particle.x, y: particle.y });
+                particle.trail.pop();
+            } else {
+                particle.x += particle.vx + Math.sin(elapsed / 95 + particle.phase) * 0.45 * horizontalScale;
+                particle.y += particle.vy;
+                particle.vy += particle.gravity;
+                particle.vx *= 0.995;
+                particle.rotation += particle.spin;
+            }
+
+            context.save();
+            context.globalAlpha = fade;
+            if (useLongStreamers) {
+                context.strokeStyle = particle.color;
+                context.lineWidth = particle.width;
+                context.lineCap = 'butt';
+                context.beginPath();
+                context.moveTo(particle.trail[0].x, particle.trail[0].y);
+                for (let index = 1; index < particle.trail.length; index++) {
+                    const point = particle.trail[index];
+                    const next = particle.trail[Math.min(index + 1, particle.trail.length - 1)];
+                    const midpointX = (point.x + next.x) / 2;
+                    const midpointY = (point.y + next.y) / 2;
+                    context.quadraticCurveTo(point.x, point.y, midpointX, midpointY);
+                }
+                const tail = particle.trail[particle.trail.length - 1];
+                context.lineTo(tail.x, tail.y);
+                context.stroke();
+            } else {
+                context.translate(particle.x, particle.y);
+                context.rotate(particle.rotation);
+                context.fillStyle = particle.color;
+                context.fillRect(-particle.width / 2, -particle.height / 2, particle.width, particle.height);
+            }
+            context.restore();
+        });
+
+        if (elapsed < 2300) {
+            championshipConfettiFrame = requestAnimationFrame(draw);
+        } else {
+            window.removeEventListener('resize', resizeCanvas);
+            championshipConfettiResizeHandler = null;
+            canvas.remove();
+            championshipConfettiCanvas = null;
+            championshipConfettiFrame = null;
+        }
+    };
+
+    window.addEventListener('resize', resizeCanvas);
+    championshipConfettiFrame = requestAnimationFrame(draw);
+}
+
+function initializeChampionConfetti() {
+    const tableBody = document.getElementById('team-history-body');
+    if (!tableBody) return;
+
+    tableBody.addEventListener('click', event => {
+        if (!(event.target instanceof Element)) return;
+        const trigger = event.target.closest('.champion-mark-confetti-trigger');
+        if (!trigger) return;
+        if (trigger.classList.contains('champion-mark-trigger')) return;
+        const bounds = trigger.getBoundingClientRect();
+        const teamName = trigger.closest('.team-cell')?.dataset.team;
+        const isAnnualChampion = trigger.classList.contains('champion-mark-annual');
+        launchChampionshipConfetti(
+            { x: bounds.left + bounds.width / 2, y: bounds.top + bounds.height / 2 },
+            teamName,
+            isAnnualChampion
+        );
     });
 }
 
@@ -115,6 +297,12 @@ function initializeSeasonProfileDialog() {
         const seasonLine = document.createElement('p');
         seasonLine.className = 'team-profile-season';
         seasonLine.textContent = `中華職棒 ${year - 1989} 年｜${getTeamDisplayName(teamName)}`;
+        if (profile.slogan) {
+            const sloganLine = document.createElement('span');
+            sloganLine.className = 'team-profile-slogan';
+            sloganLine.textContent = `｜${profile.slogan}`;
+            seasonLine.append(' ', sloganLine);
+        }
         const heading = document.createElement('h3');
         heading.id = 'season-profile-title';
         heading.textContent = profile.heading;

@@ -22,7 +22,7 @@
                     <div class="baseball-mark" aria-hidden="true"><span></span></div>
                 </div>
             </header>
-            <nav id="Breadcrumbs" aria-label="頁面導覽" hidden><div><ul><li><a href="#team-history">中華職棒</a></li><li aria-current="page">球隊沿革</li></ul></div></nav>
+            <nav id="Breadcrumbs" aria-label="頁面導覽" hidden><div><ul><li><a href="#team-history">中華職棒</a></li><li id="breadcrumb-page-label" aria-current="page">球隊沿革</li></ul></div></nav>
             <dialog class="auth-dialog" id="auth-dialog" aria-labelledby="auth-title">
                 <button class="auth-close-button" id="auth-close-button" type="button" aria-label="關閉會員視窗">×</button>
                 <section class="auth-panel" aria-labelledby="auth-title">
@@ -118,6 +118,7 @@
                 <nav class="history-page-nav" aria-label="棒球史冊頁面">
                     <a href="#team-history-page" aria-current="page">球隊沿革</a>
                     <a href="#championship-stats-page">冠軍條狀圖</a>
+                    <a href="#international-history-page">國際賽沿革</a>
                 </nav>
                 <div class="history-page-view" id="team-history-page">
                 <div class="history-heading">
@@ -183,13 +184,17 @@
                 <section class="history-page-view championship-stats-page" id="championship-stats-page" aria-labelledby="championship-stats-title" hidden>
                     <div class="stats-heading">
                         <div><p class="section-kicker">CHAMPIONSHIP RECORDS</p><h3 id="championship-stats-title">冠軍條狀圖</h3></div>
-                        <p class="stats-lineage-note">依沿革表的直欄彙整傳承球隊，名稱採該欄最新隊名。</p>
                     </div>
                     <div class="champion-charts">
                         <section class="champion-chart-card" aria-labelledby="annual-chart-title">
                             <div class="chart-card-heading"><div><p class="section-kicker">ANNUAL CHAMPIONS</p><h4 id="annual-chart-title">年度總冠軍</h4></div><span class="chart-unit">次</span></div>
                             <ol class="champion-chart-list" id="annual-champion-chart" aria-label="各傳承球隊年度總冠軍次數"></ol>
                             <p class="chart-footnote">1997–2002 年另計入台灣大聯盟年度總冠軍。</p>
+                        </section>
+                        <section class="champion-chart-card" aria-labelledby="full-season-chart-title">
+                            <div class="chart-card-heading"><div><p class="section-kicker">FULL-SEASON LEADERS</p><h4 id="full-season-chart-title">全年冠軍</h4></div><span class="chart-unit">次</span></div>
+                            <ol class="champion-chart-list" id="full-season-champion-chart" aria-label="各傳承球隊全年戰績第一次數"></ol>
+                            <p class="chart-footnote">包含單一球季與台灣大聯盟全年第一。</p>
                         </section>
                         <section class="champion-chart-card" aria-labelledby="half-chart-title">
                             <div class="chart-card-heading"><div><p class="section-kicker">HALF-SEASON CHAMPIONS</p><h4 id="half-chart-title">半季冠軍</h4></div><span class="chart-unit">上、下半季合計</span></div>
@@ -198,6 +203,79 @@
                             <p class="chart-footnote">1998、1999 年為單一球季，未列入半季冠軍統計。</p>
                         </section>
                     </div>
+                </section>
+                <section class="history-page-view international-history-page" id="international-history-page" aria-labelledby="international-history-title" hidden>
+                    <div class="international-heading">
+                        <div><p class="section-kicker">INTERNATIONAL RESULTS</p><h3 id="international-history-title">國際賽成績沿革</h3></div>
+                        <p class="international-intro">從 1969 年開始整理；每格以「賽事/成績」表示，例如「12強/第一名」。</p>
+                    </div>
+                    <div class="international-toolbar">
+                        <button class="international-scroll-button" id="international-scroll-left" type="button" aria-label="向左瀏覽較前面的賽事欄">‹</button>
+                        <p class="international-scroll-hint"><span aria-hidden="true">↔</span> 使用按鈕左右瀏覽賽事欄</p>
+                        <button class="international-scroll-button" id="international-scroll-right" type="button" aria-label="向右瀏覽較後面的賽事欄">›</button>
+                    </div>
+                    <p class="international-history-status" id="international-history-status" role="status" aria-live="polite"></p>
+                    <div class="international-table-wrap" tabindex="0" aria-label="國際賽成績表，可左右捲動">
+                        <table class="international-results-table">
+                            <caption>1969 年起中華隊國際賽成績，依年度與代表隊層級排列</caption>
+                            <thead id="international-results-head"></thead>
+                            <tbody id="international-results-body"></tbody>
+                        </table>
+                    </div>
+                    <nav class="international-sources" aria-label="少棒欄成績來源">
+                        <span>少棒欄成績來源</span>
+                        <a href="https://twbsball.dils.tku.edu.tw/index.php?title=LLB%E4%B8%96%E7%95%8C%E5%B0%91%E6%A3%92%E9%8C%A6%E6%A8%99%E8%B3%BD" target="_blank" rel="noopener noreferrer">台灣棒球維基館 ↗</a>
+                        <a href="https://twbsball.dils.tku.edu.tw/index.php?title=%E4%BA%9E%E6%B4%B2%E5%B0%91%E6%A3%92%E9%8C%A6%E6%A8%99%E8%B3%BD" target="_blank" rel="noopener noreferrer">亞洲少棒維基館 ↗</a>
+                        <a href="https://twbsball.dils.tku.edu.tw/index.php?title=U-12%E4%B8%96%E7%95%8C%E7%9B%83%E6%A3%92%E7%90%83%E8%B3%BD" target="_blank" rel="noopener noreferrer">U12 世界盃維基館 ↗</a>
+                        <a href="https://zh.wikipedia.org/wiki/%E4%BA%9E%E6%B4%B2%E5%B0%91%E6%A3%92%E9%8C%A6%E6%A8%99%E8%B3%BD" target="_blank" rel="noopener noreferrer">亞洲少棒歷屆名次 ↗</a>
+                        <a href="https://zh.wikipedia.org/wiki/U-12%E4%B8%96%E7%95%8C%E7%9B%83%E棒球賽" target="_blank" rel="noopener noreferrer">U12 世界盃歷屆名次 ↗</a>
+                        <a href="https://www.wbsc.org/en/events/2025-viii-u-12-baseball-world-cup/schedule-and-results" target="_blank" rel="noopener noreferrer">WBSC 2025 賽果 ↗</a>
+                        <a href="https://www.tllb.org.tw/world" target="_blank" rel="noopener noreferrer">台灣世界少棒聯盟歷年成績 ↗</a>
+                        <a href="https://www.cna.com.tw/news/aspt/201612130312.aspx" target="_blank" rel="noopener noreferrer">中央社 2016 亞少成績 ↗</a>
+                        <a href="https://www.mdnkids.com/content.asp?Link_String_=248G00000KPGGAT" target="_blank" rel="noopener noreferrer">國語日報 2026 亞少成績 ↗</a>
+                        <a href="https://www.littleleague.org/world-series/2026/llbws/news/south-korea-to-represent-the-asia-pacific-region-at-the-2026-little-league-baseball-world-series-presented-by-t-mobile/" target="_blank" rel="noopener noreferrer">2026 亞太賽 ↗</a>
+                        <span>LLB 僅列至 1996 年退出前；其他少棒賽事照年列錄。LLB 無世界賽名次時標示「遠東區止步」。</span>
+                    </nav>
+                    <nav class="international-sources" aria-label="青少棒欄成績來源">
+                        <span>青少棒欄成績來源</span>
+                        <a href="https://twbsball.dils.tku.edu.tw/index.php?title=LLB%E4%B8%96%E7%95%8C%E9%9D%92%E5%B0%91%E6%A3%92%E9%8C%A6%E6%A8%99%E8%B3%BD" target="_blank" rel="noopener noreferrer">LLB 世界青少棒維基館 ↗</a>
+                        <a href="https://twbsball.dils.tku.edu.tw/index.php?title=U-15%E4%B8%96%E7%95%8C%E7%9B%83%E6%A3%92%E7%90%83%E8%B3%BD" target="_blank" rel="noopener noreferrer">U15 世界盃維基館 ↗</a>
+                        <a href="https://twbsball.dils.tku.edu.tw/index.php?title=%E4%BA%9E%E6%B4%B2%E9%9D%92%E5%B0%91%E6%A3%92%E9%8C%A6%E6%A8%99%E8%B3%BD" target="_blank" rel="noopener noreferrer">亞洲青少棒維基館 ↗</a>
+                        <a href="https://static.wbsc.org/upload/390f0352-2a3d-7180-5163-0cce664a88f8.pdf" target="_blank" rel="noopener noreferrer">WBSC U15 歷屆資料 ↗</a>
+                        <a href="https://en.wikipedia.org/wiki/Senior_League_World_Series_(Asia%E2%80%93Pacific_Region)" target="_blank" rel="noopener noreferrer">Senior League 亞太區歷年名次 ↗</a>
+                        <span>表列 1972–1996 年 LLB Senior League、1989 年起 U15 世界青少棒賽及 2000 年起亞洲青少棒錦標賽成績；2007 年 U15 賽事未獲認可，不列入。</span>
+                    </nav>
+                    <nav class="international-sources" aria-label="青棒欄成績來源">
+                        <span>青棒欄成績來源</span>
+                        <a href="https://twbsball.dils.tku.edu.tw/index.php?title=LLB%E4%B8%96%E7%95%8C%E9%9D%92%E6%A3%92%E9%8C%A6%E6%A8%99%E8%B3%BD" target="_blank" rel="noopener noreferrer">LLB 世界青棒維基館 ↗</a>
+                        <a href="https://twbsball.dils.tku.edu.tw/index.php?title=U-18%E4%B8%96%E7%95%8C%E7%9B%83%E6%A3%92%E7%90%83%E8%B3%BD" target="_blank" rel="noopener noreferrer">U18 世界盃維基館 ↗</a>
+                        <a href="https://twbsball.dils.tku.edu.tw/index.php?title=%E4%BA%9E%E6%B4%B2%E9%9D%92%E6%A3%92%E9%8C%A6%E6%A8%99%E8%B3%BD" target="_blank" rel="noopener noreferrer">亞洲青棒（亞青）維基館 ↗</a>
+                        <a href="https://www.japan-baseball.jp/en/games/u18worldcup2025/" target="_blank" rel="noopener noreferrer">U18 世界盃 2025 官方賽果 ↗</a>
+                        <a href="https://en.wikipedia.org/wiki/Big_League_World_Series_(Asia%E2%80%93Pacific_Region)" target="_blank" rel="noopener noreferrer">Big League 亞太區歷年名次 ↗</a>
+                        <span>表列 1974–1996 年 LLB Big League 世界賽結果、1983 年起 U18 世界青棒／世界盃成績及 1994 年起亞洲青棒（亞青）錦標賽成績；2020 年亞青賽取消，2021 年 U18 世界盃延至 2022 年舉行。</span>
+                    </nav>
+                    <nav class="international-sources" aria-label="成棒欄成績來源">
+                        <span>成棒欄成績來源</span>
+                        <a href="https://twbsball.dils.tku.edu.tw/index.php?title=U-23%E4%B8%96%E7%95%8C%E7%9B%83%E6%A3%92%E7%90%83%E8%B3%BD" target="_blank" rel="noopener noreferrer">U23 世界盃維基館 ↗</a>
+                        <a href="https://i.japan-baseball.jp/en/team/23u/2026/worldcup/overview.html" target="_blank" rel="noopener noreferrer">U23 世界盃 2026 官方賽果 ↗</a>
+                        <span>表列 U23 世界盃成績；2014 年賽事為前身 21U 世界盃，原定 2020 年賽事延至 2021 年舉行。</span>
+                    </nav>
+                    <nav class="international-sources" aria-label="一級賽事欄成績來源">
+                        <span>一級賽事欄成績來源</span>
+                        <a href="https://twbsball.dils.tku.edu.tw/index.php?title=%E4%B8%96%E7%95%8C%E6%A3%92%E7%90%83%E7%B6%93%E5%85%B8%E8%B3%BD" target="_blank" rel="noopener noreferrer">世界棒球經典賽維基館 ↗</a>
+                        <a href="https://twbsball.dils.tku.edu.tw/index.php?title=%E5%A5%A7%E6%9E%97%E5%8C%B9%E5%85%8B%E9%81%8B%E5%8B%95%E6%9C%83" target="_blank" rel="noopener noreferrer">奧林匹克運動會維基館 ↗</a>
+                        <span>表列各屆經典賽名次、資格賽名次與晉級會內賽紀錄；正式奧運棒球屆次均列錄，中華隊未參賽時標示「未參賽」，並列1984、1988年示範賽成績。</span>
+                    </nav>
+                    <nav class="international-sources" aria-label="亞洲欄成績來源">
+                        <span>亞洲欄成績來源</span>
+                        <a href="https://twbsball.dils.tku.edu.tw/index.php?title=%E4%BA%9E%E6%B4%B2%E6%A3%92%E7%90%83%E9%8C%A6%E6%A8%99%E8%B3%BD" target="_blank" rel="noopener noreferrer">亞洲棒球錦標賽維基館 ↗</a>
+                        <a href="https://twbsball.dils.tku.edu.tw/index.php?title=%E4%BA%9E%E6%B4%B2%E9%81%8B%E5%8B%95%E6%9C%83" target="_blank" rel="noopener noreferrer">亞洲運動會維基館 ↗</a>
+                        <a href="https://twbsball.dils.tku.edu.tw/index.php?title=%E4%BA%9E%E6%B4%B2%E8%81%B7%E6%A3%92%E5%86%A0%E8%BB%8D%E7%88%AD%E9%9C%B8%E8%B3%BD" target="_blank" rel="noopener noreferrer">亞洲職棒冠軍爭霸賽維基館 ↗</a>
+                        <a href="https://i.japan-baseball.jp/en/team/amateur/2025/asianchampionship/overview.html" target="_blank" rel="noopener noreferrer">亞錦賽 2025 官方賽果 ↗</a>
+                        <a href="https://i.japan-baseball.jp/en/team/amateur/2026/asiangames/overview.html" target="_blank" rel="noopener noreferrer">亞運棒球 2026 官方賽果 ↗</a>
+                        <span>表列 1969 年起各屆亞洲棒球錦標賽、1990 年起亞運棒球及 2017 年起亞洲職棒冠軍爭霸賽名次；1990 年亞運棒球為示範賽。</span>
+                    </nav>
+
                 </section>
             </section>
         </div>
@@ -320,11 +398,13 @@
     <script src="data/championship-data.js"></script>
     <script src="data/year-archive-data.js"></script>
     <script src="data/challenge-series-data.js"></script>
+    <script src="data/international-history-data.js"></script>
     <script src="data/team-history-data.js"></script>
     <script src="js/team-ui.js"></script>
     <script src="js/team-history.js"></script>
     <script src="js/profile-dialogs.js"></script>
     <script src="js/championship-charts.js"></script>
+    <script src="js/international-history.js"></script>
     <script src="js/championship-admin.js"></script>
     <script src="script.js"></script>
 </body>

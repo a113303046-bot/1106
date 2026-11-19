@@ -36,6 +36,7 @@ const teamLogos = {
 };
 
 // 沿用各隊徽的主色方向，將沿革表底色統一調成低飽和柔和色。
+const lamigoTeamBackgroundColor = '#DFEAF0';
 const teamBackgroundColors = {
     '中信兄弟': '#F5E2A6',
     '兄弟象': '#F5E2A6',
@@ -52,8 +53,8 @@ const teamBackgroundColors = {
     '興農熊': '#E8EED7',
     '俊國熊': '#EEF0D9',
     'Rakuten Monkeys': '#F2DEDF',
-    'Lamigo桃猿': '#DFEAF0',
-    'Lamigo桃猿1': '#DFEAF0',
+    'Lamigo桃猿': lamigoTeamBackgroundColor,
+    'Lamigo桃猿1': lamigoTeamBackgroundColor,
     'LaNew 熊': '#E4EDDD',
     '味全龍': '#F4DDDC',
     '味全龍1': '#F4DDDC',

@@ -7,7 +7,7 @@ function getTeamBackgroundColor(teamName, fallbackColor) {
 }
 
 function getTeamDisplayName(teamName) {
-    return String(teamName).replace(/^(統一獅|味全龍)\d+$/, '$1');
+    return String(teamName).replace(/^(統一獅|味全龍|Lamigo桃猿)\d+$/, '$1');
 }
 
 function getTeamBadgeGroup(cell) {
@@ -42,10 +42,18 @@ function addSeasonChampionBadges(cell, year, teamName, annualChampionName) {
     const badgeGroup = getTeamBadgeGroup(cell);
     honors.forEach(([kind, label, title]) => {
         const isFeaturedGame = Number(year) === 2026 && kind === 'second-half';
-        const mark = document.createElement(isFeaturedGame ? 'button' : 'span');
+        const isHalfChampion = kind === 'first-half' || kind === 'second-half';
+        const isAnnualChampion = kind === 'annual';
+        const mark = document.createElement(isFeaturedGame || isHalfChampion || isAnnualChampion ? 'button' : 'span');
         mark.className = `champion-mark champion-mark-${kind}`;
         mark.title = title;
         mark.setAttribute('aria-label', title);
+        if (isAnnualChampion || isHalfChampion) {
+            mark.type = 'button';
+            mark.classList.add('champion-mark-confetti-trigger');
+            mark.setAttribute('aria-label', `${year} 年${getTeamDisplayName(teamName)}${title}，點擊拋彩帶`);
+            mark.title = `點擊拋下${title}彩帶`;
+        }
         if (isFeaturedGame) {
             mark.type = 'button';
             mark.classList.add('champion-mark-trigger');

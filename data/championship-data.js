@@ -46,6 +46,11 @@ const teamMergerRelations = [
         year: 2003,
         predecessorNames: ['高屏雷公', '台北太陽'],
         successorName: '第一金剛'
+    },
+    {
+        year: 2003,
+        predecessorNames: ['台中金剛', '嘉南勇士'],
+        successorName: '誠泰太陽'
     }
 ];
 
@@ -108,10 +113,15 @@ const teamSeasonProfileData = {
                 sources: [{ label: 'CPBL 臺灣大賽開打報導', url: 'https://cpbl.com.tw/xmdoc/cont?sid=0P290584837815979468' }]
             },
             '統一7-ELEVEn獅': {
+                slogan: '尚勇',
                 heading: '上半季封王，季後賽遭樂天逆轉', record: '66 勝・54 敗', rank: '全年第 2 名', distinction: '上半季冠軍・季後挑戰賽止步',
-                summary: '統一獅拿下上半季冠軍並在季後挑戰賽取得領先，樂天桃猿連追三勝完成逆轉，獅隊無緣臺灣大賽。',
-                highlights: ['季後挑戰賽一度取得 2 勝 0 敗聽牌優勢。', '第四戰進入延長賽，樂天以 4：3 勝出並完成「讓二追三」。', '陳傑憲、林安可等中心打線成員持續扮演攻擊主力。'],
-                sources: [{ label: 'CPBL 季後挑戰賽第四戰', url: 'https://cpbl.com.tw/xmdoc/cont?sid=0P287004028052498155' }]
+                summary: '統一獅以 36 勝 24 敗奪下上半季冠軍，拿下隊史第 18 座季冠軍；全年以 66 勝 54 敗排名第二。季後挑戰賽先取得 2 勝 0 敗聽牌，最終遭樂天桃猿連追三勝逆轉，無緣臺灣大賽。',
+                highlights: ['6 月 29 日在保留賽以 4：1 擊敗樂天桃猿，以上半季 36 勝 24 敗封王。', '上半季冠軍是隊史第 18 座季冠軍，也是連續第三年拿下上半季冠軍。', '季後挑戰賽一度取得 2 勝 0 敗聽牌；樂天第四戰延長賽以 4：3 獲勝，最終完成「讓二追三」。'],
+                sources: [
+                    { label: '統一獅年度口號「尚勇」', url: 'https://video.udn.com/news/1300833' },
+                    { label: '中央社：統一獅奪隊史第 18 座季冠軍', url: 'https://www.cna.com.tw/news/aspt/202506290185.aspx' },
+                    { label: 'CPBL 季後挑戰賽第四戰', url: 'https://cpbl.com.tw/xmdoc/cont?sid=0P287004028052498155' }
+                ]
             },
             '富邦悍將': {
                 heading: '全年排名第六，尋找重整方向', record: '46 勝・74 敗', rank: '全年第 6 名', distinction: '未取得季後賽資格',
