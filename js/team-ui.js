@@ -20,21 +20,25 @@ function getTeamBadgeGroup(cell) {
     return badgeGroup;
 }
 
-function addSeasonChampionBadges(cell, year, teamName, annualChampionName) {
-    const record = seasonChampionData[year];
-    const tmlChampion = tmlYearStandingsData[year]?.champion;
+function addSeasonChampionBadges(cell, year, teamName, annualChampionName, supplementalLeague = false) {
+    const winterSeason = supplementalLeague ? winterLeagueYearStandingsData?.[year] : null;
+    const record = supplementalLeague ? null : seasonChampionData[year];
+    const tmlChampion = supplementalLeague ? null : tmlYearStandingsData[year]?.champion;
     const fullSeasonLeaders = [
         yearLeagueArchiveData[year]?.standings?.annual?.[0]?.[0],
         tmlYearStandingsData[year]?.rows?.[0]?.[0],
-        record?.singleSeason
+        record?.singleSeason,
+        winterSeason?.completed ? winterSeason.leader : null
     ];
-    if (!record && tmlChampion !== teamName && !fullSeasonLeaders.includes(teamName)) return;
+    if (!record && !winterSeason && tmlChampion !== teamName && !fullSeasonLeaders.includes(teamName)) return;
 
     const honors = [];
     if (record?.firstHalf === teamName) honors.push(['first-half', '上', '上半季冠軍']);
     if (record?.secondHalf === teamName) honors.push(['second-half', '下', '下半季冠軍']);
     if (fullSeasonLeaders.includes(teamName)) honors.push(['full-season', '全', '全年戰績第一']);
-    if (annualChampionName === teamName) honors.push(['annual', '1', '年度總冠軍']);
+    if ((supplementalLeague ? winterSeason?.completed && winterSeason.champion : annualChampionName) === teamName) {
+        honors.push(['annual', '1', '年度總冠軍']);
+    }
     if (tmlChampion === teamName) honors.push(['tml', 'TML', '台灣大聯盟年度總冠軍']);
     if (!honors.length) return;
 
@@ -84,6 +88,15 @@ function addSeasonChampionBadges(cell, year, teamName, annualChampionName) {
         mark.appendChild(trophy);
         badgeGroup.appendChild(mark);
     });
+}
+
+function addWinterLeagueHistoryBadges(cell, year, teamName) {
+    const season = winterLeagueYearStandingsData[year];
+    if (!season?.completed) return;
+    if (season.champion !== teamName && season.leader !== teamName) return;
+
+    addSeasonChampionBadges(cell, year, teamName, null, true);
+    if (season.champion === teamName) cell.classList.add('champion-cell');
 }
 
 function addChallengeSeriesMark(cell, year, teamName) {

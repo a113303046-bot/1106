@@ -26,19 +26,14 @@
             <dialog class="auth-dialog" id="auth-dialog" aria-labelledby="auth-title">
                 <button class="auth-close-button" id="auth-close-button" type="button" aria-label="關閉會員視窗">×</button>
                 <section class="auth-panel" aria-labelledby="auth-title">
-                <div class="auth-heading"><span class="auth-icon" aria-hidden="true">✦</span><div><p class="section-kicker">MEMBER ACCESS</p><h3 id="auth-title">會員登入</h3><p class="auth-prompt" id="auth-prompt">請登入或註冊，開啟球隊沿革檔案。</p></div></div>
-                <form id="auth-form" class="auth-form">
-                    <label for="auth-email">電子郵件</label>
-                    <input id="auth-email" name="email" type="email" autocomplete="email" required maxlength="254" autofocus>
-                    <label for="auth-password">密碼（至少 6 個字元）</label>
-                    <input id="auth-password" name="password" type="password" autocomplete="new-password" minlength="6" required>
+                <div class="auth-heading"><span class="auth-icon" aria-hidden="true">✦</span><div><p class="section-kicker">MEMBER ACCESS</p><h3 id="auth-title">會員登入</h3><p class="auth-prompt" id="auth-prompt">使用 Google 帳號驗證並登入。</p></div></div>
+                <div class="auth-form">
                     <div class="auth-actions">
-                        <button id="signup-button" type="button">註冊</button>
-                        <button id="signin-button" class="secondary" type="button">登入</button>
+                        <button id="google-signin-button" type="button">使用 Google 帳號登入</button>
                         <button id="signout-button" class="secondary" type="button" hidden>登出</button>
                         <a id="admin-nav-link" class="admin-link" href="#championship-admin" hidden>冠軍後台</a>
                     </div>
-                </form>
+                </div>
                 <p id="auth-status" role="status" aria-live="polite"></p>
                 <p id="auth-user" class="auth-user" hidden></p>
                 </section>
@@ -119,6 +114,9 @@
                     <a href="#team-history-page" aria-current="page">球隊沿革</a>
                     <a href="#championship-stats-page">冠軍條狀圖</a>
                     <a href="#international-history-page">國際賽沿革</a>
+                    <a href="#draft-history-page">歷年選秀</a>
+                    <a href="#winter-league-history-page">冬盟沿革</a>
+                    <a href="#amateur-baseball-history-page">業餘棒球沿革</a>
                 </nav>
                 <div class="history-page-view" id="team-history-page">
                 <div class="history-heading">
@@ -277,6 +275,54 @@
                     </nav>
 
                 </section>
+                <section class="history-page-view draft-history-page" id="draft-history-page" aria-labelledby="draft-history-title" hidden>
+                    <div class="draft-heading">
+                        <div><p class="section-kicker">CPBL DRAFT HISTORY</p><h3 id="draft-history-title">歷年選秀名單</h3></div>
+                        <a class="draft-source-link" href="https://zh.wikipedia.org/wiki/中華職棒選秀會" target="_blank" rel="noopener noreferrer">資料來源：中華職棒選秀會 ↗</a>
+                    </div>
+                    <p class="draft-intro">依年度、選秀場次和球隊整理指名並列出特考名單；台鋼加選列在該輪最後順位。只有全隊放棄才代表該場選秀結束。</p>
+                    <div class="draft-filters">
+                        <label for="draft-year-filter">年度
+                            <select id="draft-year-filter"><option value="all">所有年度</option></select>
+                        </label>
+                        <label for="draft-team-filter">球隊
+                            <select id="draft-team-filter"><option value="all">所有球隊</option></select>
+                        </label>
+                        <label class="draft-search-field" for="draft-search">搜尋球員
+                            <input id="draft-search" type="search" placeholder="輸入球員姓名" autocomplete="off">
+                        </label>
+                    </div>
+                    <p class="draft-history-status" id="draft-history-status" role="status" aria-live="polite">正在載入歷年選秀名單……</p>
+                    <div class="draft-year-list" id="draft-year-list"></div>
+                    <button class="draft-retry-button" id="draft-retry" type="button" hidden>重新載入</button>
+                </section>
+                <section class="history-page-view supplemental-history-page" id="winter-league-history-page" aria-labelledby="winter-league-history-title" hidden>
+                    <div class="supplemental-history-heading">
+                        <div><p class="section-kicker">WINTER LEAGUE TIMELINE</p><h3 id="winter-league-history-title">冬盟沿革</h3></div>
+                        <a class="supplemental-history-source" href="https://awb.cpbl.com.tw/teamhistory" target="_blank" rel="noopener noreferrer">資料來源：亞洲冬季棒球聯盟官方沿革 ↗</a>
+                    </div>
+                    <p class="supplemental-history-intro">依年度排列冬季聯盟的參賽隊伍；相同隊伍或參賽脈絡固定在同一直欄。點擊年度可查看例行賽戰績、總冠軍與全年第一。</p>
+                    <p class="supplemental-history-status" id="winter-league-history-status" role="status" aria-live="polite">準備冬盟沿革架構……</p>
+                    <div class="supplemental-history-table-wrap" tabindex="0" aria-label="冬盟沿革表，可左右捲動">
+                        <table class="supplemental-history-table" id="winter-league-history-table">
+                            <caption>冬盟各年度參賽隊伍與沿革</caption>
+                            <tbody id="winter-league-history-body"></tbody>
+                        </table>
+                    </div>
+                </section>
+                <section class="history-page-view supplemental-history-page" id="amateur-baseball-history-page" aria-labelledby="amateur-baseball-history-title" hidden>
+                    <div class="supplemental-history-heading">
+                        <div><p class="section-kicker">AMATEUR BASEBALL TIMELINE</p><h3 id="amateur-baseball-history-title">業餘棒球沿革</h3></div>
+                    </div>
+                    <p class="supplemental-history-intro">依年度排列業餘棒球的隊伍與賽事；各隊可固定在同一直欄，呈現跨年度沿革。資料維護於 <code>data/amateur-baseball-history-data.js</code>。</p>
+                    <p class="supplemental-history-status" id="amateur-baseball-history-status" role="status" aria-live="polite">準備業餘棒球沿革架構……</p>
+                    <div class="supplemental-history-table-wrap" tabindex="0" aria-label="業餘棒球沿革表，可左右捲動">
+                        <table class="supplemental-history-table" id="amateur-baseball-history-table">
+                            <caption>業餘棒球各年度隊伍、賽事與沿革</caption>
+                            <tbody id="amateur-baseball-history-body"></tbody>
+                        </table>
+                    </div>
+                </section>
             </section>
         </div>
     </div>
@@ -295,13 +341,9 @@
         };
         firebase.initializeApp(firebaseConfig);
         const auth = firebase.auth();
-        const form = document.getElementById('auth-form');
-        const emailInput = document.getElementById('auth-email');
-        const passwordInput = document.getElementById('auth-password');
         const status = document.getElementById('auth-status');
         const userDisplay = document.getElementById('auth-user');
-        const signupButton = document.getElementById('signup-button');
-        const signinButton = document.getElementById('signin-button');
+        const googleSigninButton = document.getElementById('google-signin-button');
         const signoutButton = document.getElementById('signout-button');
         const authDialog = document.getElementById('auth-dialog');
         const authOpenButton = document.getElementById('auth-open-button');
@@ -327,39 +369,43 @@
             const clickedOutside = event.clientX < rect.left || event.clientX > rect.right || event.clientY < rect.top || event.clientY > rect.bottom;
             if (clickedOutside) authDialog.close();
         });
-        function credentials() {
-            if (!form.reportValidity()) throw new Error('請輸入有效的電子郵件與至少 6 個字元的密碼。');
-            return { email: emailInput.value.trim(), password: passwordInput.value };
-        }
         function describeAuthError(error) {
             const messages = {
-                'auth/email-already-in-use': '這個電子郵件已註冊，請直接登入。',
-                'auth/invalid-email': '電子郵件格式不正確。',
-                'auth/weak-password': '密碼強度不足，請使用至少 6 個字元。',
                 'auth/user-disabled': '此帳號目前已停用。',
-                'auth/invalid-credential': '電子郵件或密碼錯誤，請確認後重試。',
+                'auth/invalid-credential': 'Google 帳號驗證失敗，請選擇帳號後重試。',
                 'auth/network-request-failed': '網路連線失敗，請稍後重試。',
-                'auth/operation-not-allowed': 'Firebase 尚未啟用電子郵件／密碼登入，請到 Authentication 的登入方式設定啟用。',
+                'auth/operation-not-allowed': 'Firebase 尚未啟用這種登入方式，請到 Authentication 的登入方式設定啟用。',
+                'auth/popup-blocked': '瀏覽器封鎖了 Google 登入視窗，請允許快顯視窗後重試。',
+                'auth/popup-closed-by-user': 'Google 登入已取消。',
+                'auth/cancelled-popup-request': '登入視窗已被新的請求取代，請再試一次。',
+                'auth/operation-not-supported-in-this-environment': '目前開啟方式不支援 Google 登入。請使用 http://localhost 或正式網站網址開啟。',
+                'auth/auth-domain-config-required': 'Firebase Authentication 缺少驗證網域設定，請確認專案的 authDomain。',
+                'auth/unauthorized-domain': '目前網站網域尚未加入 Firebase Authentication 授權網域。',
+                'auth/account-exists-with-different-credential': '這個 Google 電子郵件已綁定其他登入方式，請使用原帳戶完成登入。',
                 'auth/too-many-requests': '嘗試次數過多，請稍候再試。'
             };
-            return messages[error.code] || '操作失敗，請確認 Firebase Authentication 設定後重試。';
+            return messages[error.code] || `操作失敗（Firebase 錯誤碼：${error.code || 'unknown'}），請確認 Firebase Authentication 設定後重試。`;
         }
-        async function runAuth(action) {
-            signupButton.disabled = signinButton.disabled = true;
+        async function runGoogleSignIn() {
+            if (location.protocol === 'file:') {
+                setStatus('Google 登入無法從 file:// 檔案啟動。請以 http://localhost:8000 開啟網站後重試。', true);
+                return;
+            }
+            googleSigninButton.disabled = true;
             try {
-                const { email, password } = credentials();
-                await action(email, password);
-                passwordInput.value = '';
+                const provider = new firebase.auth.GoogleAuthProvider();
+                provider.setCustomParameters({ prompt: 'select_account' });
+                await auth.signInWithPopup(provider);
                 authDialog.close();
-                setStatus('操作成功。');
+                setStatus('已使用 Google 帳號登入。');
             } catch (error) {
-                setStatus(error.code ? describeAuthError(error) : error.message, true);
+                console.error('Firebase Google sign-in failed:', error.code, error.message);
+                setStatus(describeAuthError(error), true);
             } finally {
-                signupButton.disabled = signinButton.disabled = false;
+                googleSigninButton.disabled = false;
             }
         }
-        signupButton.addEventListener('click', () => runAuth((email, password) => auth.createUserWithEmailAndPassword(email, password)));
-        signinButton.addEventListener('click', () => runAuth((email, password) => auth.signInWithEmailAndPassword(email, password)));
+        googleSigninButton.addEventListener('click', runGoogleSignIn);
         signoutButton.addEventListener('click', async () => {
             try { await auth.signOut(); authDialog.close(); setStatus('已登出。'); }
             catch (error) { setStatus(describeAuthError(error), true); }
@@ -371,7 +417,7 @@
             authPanel.classList.toggle('is-signed-in', signedIn);
             userDisplay.hidden = !signedIn;
             signoutButton.hidden = !signedIn;
-            signupButton.hidden = signinButton.hidden = signedIn;
+            googleSigninButton.hidden = signedIn;
             if (user) {
                 authOpenButton.textContent = '會員專區';
                 authTitle.textContent = '會員專區';
@@ -399,12 +445,16 @@
     <script src="data/year-archive-data.js"></script>
     <script src="data/challenge-series-data.js"></script>
     <script src="data/international-history-data.js"></script>
+    <script src="data/winter-league-history-data.js"></script>
+    <script src="data/amateur-baseball-history-data.js"></script>
     <script src="data/team-history-data.js"></script>
     <script src="js/team-ui.js"></script>
     <script src="js/team-history.js"></script>
     <script src="js/profile-dialogs.js"></script>
     <script src="js/championship-charts.js"></script>
     <script src="js/international-history.js"></script>
+    <script src="js/supplemental-history.js"></script>
+    <script src="js/draft-history.js"></script>
     <script src="js/championship-admin.js"></script>
     <script src="script.js"></script>
 </body>

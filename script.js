@@ -4,6 +4,21 @@
 document.addEventListener('DOMContentLoaded', function() {
     console.log('初始化球隊沿革頁面...');
 
+    // 綁定導覽優先於各區塊渲染，避免任一資料區塊發生錯誤時整頁無法切換。
+    const historyPageNav = document.querySelector('.history-page-nav');
+    historyPageNav?.addEventListener('click', event => {
+        if (!(event.target instanceof Element)) return;
+        const link = event.target.closest('a[href^="#"]');
+        if (!link || !historyPageNav.contains(link)) return;
+        try {
+            setActiveHistoryPage(link.hash.slice(1));
+        } catch (error) {
+            console.error('頁面切換時發生錯誤。', error);
+        }
+    });
+    window.addEventListener('hashchange', syncHistoryPageFromHash);
+    window.addEventListener('popstate', syncHistoryPageFromHash);
+
     // 生成動態表格
     renderTeamHistoryTable();
     initializeTeamProfileDialog();
@@ -19,15 +34,6 @@ document.addEventListener('DOMContentLoaded', function() {
     addInteractiveEffects();
     displayChampionshipStats();
     syncHistoryPageFromHash();
-    window.addEventListener('hashchange', syncHistoryPageFromHash);
-    window.addEventListener('popstate', syncHistoryPageFromHash);
-    document.querySelectorAll('.history-page-nav a').forEach(link => {
-        link.addEventListener('click', event => {
-            event.preventDefault();
-            setActiveHistoryPage(link.hash.slice(1));
-            if (window.location.hash !== link.hash) history.pushState(null, '', link.hash);
-        });
-    });
     if (typeof firebase !== 'undefined' && typeof firebase.auth === 'function') {
         firebase.auth().onAuthStateChanged(user => { if (user) syncHistoryPageFromHash(); });
     }

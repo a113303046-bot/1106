@@ -362,6 +362,7 @@ function initializeSeasonProfileDialog() {
 
 function initializeYearArchiveDialog() {
     const tableBody = document.getElementById('team-history-body');
+    const winterTableBody = document.getElementById('winter-league-history-body');
     const dialog = document.getElementById('year-archive-dialog');
     const content = document.getElementById('year-archive-content');
     const closeButton = document.getElementById('year-archive-close');
@@ -392,6 +393,28 @@ function initializeYearArchiveDialog() {
             noteText.textContent = note;
             section.appendChild(noteText);
         }
+        return section;
+    };
+
+    const renderWinterStandings = (rows, title) => {
+        const section = document.createElement('section');
+        section.className = 'year-archive-standings';
+        const sectionHeading = document.createElement('h4');
+        sectionHeading.textContent = title;
+        const table = document.createElement('table');
+        table.innerHTML = '<thead><tr><th>名次</th><th>球隊</th><th>場次</th><th>勝</th><th>敗</th><th>和</th><th>勝率</th></tr></thead>';
+        const tbody = document.createElement('tbody');
+        rows.forEach(([rank, team, games, wins, losses, draws, percentage]) => {
+            const row = document.createElement('tr');
+            [rank, team, games, wins, losses, draws, percentage].forEach((value, columnIndex) => {
+                const cell = document.createElement('td');
+                cell.textContent = columnIndex === 1 ? getTeamDisplayName(value) : String(value);
+                row.appendChild(cell);
+            });
+            tbody.appendChild(row);
+        });
+        table.appendChild(tbody);
+        section.append(sectionHeading, table);
         return section;
     };
 
@@ -444,6 +467,57 @@ function initializeYearArchiveDialog() {
         label.textContent = '戰績來源';
         sources.appendChild(label);
         [...archive.sources, ...(tmlStandings ? tmlYearStandingsSources : [])].forEach(source => {
+            const link = document.createElement('a');
+            link.href = source.url;
+            link.target = '_blank';
+            link.rel = 'noopener noreferrer';
+            link.textContent = `${source.label} ↗`;
+            sources.appendChild(link);
+        });
+        content.append(kicker, heading, introTitle, intro, standings, sources);
+        dialog.showModal();
+    });
+
+    winterTableBody?.addEventListener('click', event => {
+        if (!(event.target instanceof Element)) return;
+        const trigger = event.target.closest('.year-archive-trigger');
+        if (!trigger) return;
+        const year = Number(trigger.dataset.year);
+        const archive = winterLeagueYearStandingsData[year];
+        if (!archive) return;
+
+        content.replaceChildren();
+        const kicker = document.createElement('p');
+        kicker.className = 'section-kicker';
+        kicker.textContent = 'WINTER LEAGUE · SEASON STANDINGS';
+        const heading = document.createElement('h3');
+        heading.id = 'year-archive-title';
+        heading.textContent = `${year} 年｜冬盟戰績`;
+        const introTitle = document.createElement('h4');
+        introTitle.textContent = archive.completed ? '年度結果' : '賽季進行中';
+        const intro = document.createElement('p');
+        intro.className = 'team-profile-summary';
+        intro.textContent = archive.completed
+            ? `年度總冠軍：${archive.champion}；全年戰績第一：${archive.leader}。`
+            : `目前例行賽第一：${archive.currentLeader}（暫列）。${archive.note}`;
+        const standings = document.createElement('div');
+        standings.className = 'year-archive-grid';
+        standings.append(renderWinterStandings(
+            archive.rows,
+            archive.completed ? '例行賽最終戰績' : '目前例行賽戰績'
+        ));
+        const sources = document.createElement('nav');
+        sources.className = 'team-profile-sources';
+        sources.setAttribute('aria-label', `${year} 年冬盟戰績來源`);
+        const label = document.createElement('span');
+        label.textContent = '戰績來源';
+        sources.appendChild(label);
+        const sourceLinks = [
+            ...archive.sources,
+            { label: '台灣棒球維基館：亞洲冬季棒球聯盟', url: 'https://twbsball.dils.tku.edu.tw/index.php?title=%E4%BA%9E%E6%B4%B2%E5%86%AC%E5%AD%A3%E6%A3%92%E7%90%83%E8%81%AF%E7%9B%9F' },
+            { label: 'CPBL 官方歷年球隊戰績', url: 'https://awb.cpbl.com.tw/standings/history' }
+        ].filter((source, index, allSources) => allSources.findIndex(item => item.url === source.url) === index);
+        sourceLinks.forEach(source => {
             const link = document.createElement('a');
             link.href = source.url;
             link.target = '_blank';
