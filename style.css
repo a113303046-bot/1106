@@ -596,6 +596,8 @@ body {
 .supplemental-history-table .supplemental-history-year .year-archive-trigger { position: relative; z-index: 1; padding: 7px 4px; border: 0; border-radius: 3px; background: transparent; color: inherit; font: inherit; letter-spacing: inherit; cursor: pointer; }
 .supplemental-history-table .supplemental-history-year .year-archive-trigger:hover { color: #f3d68e; text-decoration: underline; text-underline-offset: 4px; }
 .supplemental-history-table .supplemental-history-year .year-archive-trigger:focus-visible { outline: 2px solid #f3d68e; outline-offset: 2px; }
+.supplemental-history-table .supplemental-history-year-source { position: relative; z-index: 1; display: block; margin-top: 5px; color: #d8d0b9; font-size: 9px; font-weight: 600; letter-spacing: 0; text-decoration: none; }
+.supplemental-history-table .supplemental-history-year-source:hover { color: #f3d68e; text-decoration: underline; text-underline-offset: 3px; }
 .supplemental-history-table .supplemental-history-year::after {
     position: absolute;
     top: 13px;

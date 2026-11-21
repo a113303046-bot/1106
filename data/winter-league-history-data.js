@@ -102,21 +102,11 @@ const winterLeagueHistoryData = [
     {
         year: 2012,
         entries: [
-            { name: '中華紅', logo: 'winterleague/中華紅隊.gif' },
-            { name: '中華白', logo: 'winterleague/中華白隊.gif' }, 
-            null,
-            null,
+            { name: '中華紅', logo: 'winterleague/中華紅隊.gif' },{ name: '中華白', logo: 'winterleague/中華白隊.gif' }, null,null,
             { name: '日職聯隊', logo: 'winterleague/日職聯隊.png', span: 2 }, 
-            null,
-            null,
-            null,
+            null,null,null,
             { name: '多明尼加', logo: 'winterleague/多明尼加.png' },
-            null,
-            null,
-            null,
-            null,
-            null
-           
+            null,null,null,null,null
         ]
     }
 ];

@@ -118,6 +118,7 @@ function createSupplementalHistoryStackCell(entries, lane, laneId) {
 }
 
 function initializeSupplementalHistoryPages() {
+    const amateurHistoryColors = ['#e6e9df', '#e4e8e9', '#ffebec', '#c1ffe4', '#e9e4d7', '#f2e0e2', '#f2e4dc', '#e5e8ef', '#e5e7ed', '#e5eadc', '#ece0d5'];
     const pages = [
         {
             data: winterLeagueHistoryData,
@@ -152,7 +153,11 @@ function initializeSupplementalHistoryPages() {
                 if (!entry) return;
                 const laneId = getSupplementalHistoryLaneId(entry, isWinterLeague);
                 if (!laneMap.has(laneId)) {
-                    laneMap.set(laneId, { id: laneId, label: entry.name, color: entry.color });
+                    laneMap.set(laneId, {
+                        id: laneId,
+                        label: entry.name,
+                        color: entry.color || (isWinterLeague ? undefined : amateurHistoryColors[laneMap.size % amateurHistoryColors.length])
+                    });
                 }
             });
         });
@@ -164,6 +169,13 @@ function initializeSupplementalHistoryPages() {
             const laneOrder = new Map(configuredOrder.map((label, index) => [label, index]));
             lanes.sort((a, b) => (laneOrder.get(a.label) ?? Number.MAX_SAFE_INTEGER)
                 - (laneOrder.get(b.label) ?? Number.MAX_SAFE_INTEGER));
+        } else {
+            const bLaneIndex = lanes.findIndex(lane => lane.id === 'taipei-sports-b');
+            if (bLaneIndex >= 0 && lanes.some(lane => lane.id === 'taipei-sports-a')) {
+                const [bLane] = lanes.splice(bLaneIndex, 1);
+                const aLaneIndex = lanes.findIndex(lane => lane.id === 'taipei-sports-a');
+                lanes.splice(aLaneIndex + 1, 0, bLane);
+            }
         }
         const table = body.closest('table');
         table.style.setProperty('--entry-column-count', String(lanes.length));
@@ -202,6 +214,16 @@ function initializeSupplementalHistoryPages() {
                 year.appendChild(yearButton);
             } else {
                 year.textContent = String(yearData.year);
+            }
+            if (yearData.source) {
+                const source = document.createElement('a');
+                source.className = 'supplemental-history-year-source';
+                source.href = yearData.source;
+                source.target = '_blank';
+                source.rel = 'noopener noreferrer';
+                source.textContent = '資料 ↗';
+                source.setAttribute('aria-label', `${yearData.year} 年沿革資料來源`);
+                year.appendChild(source);
             }
             row.appendChild(year);
 
